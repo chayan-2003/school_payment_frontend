@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ReactNode } from 'react';
+import  { useEffect, useState, ReactNode } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchTransactions } from '../services/transactionService.ts';
 
