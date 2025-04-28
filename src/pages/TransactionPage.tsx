@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import Filter from '../components/Filter';
 import TransactionsTable from '../components/TransactionTable';
 import { FaMoon } from 'react-icons/fa'; // Import a moon icon from react-icons
@@ -27,7 +27,7 @@ const TransactionsPage = () => {
       <div className="p-6 space-y-6">
         {/* Group Filter and Table closely */}
         <div
-          className={`shadow p-4 space-y-4 shadow-2xl ${
+          className={`p-4 space-y-4 shadow-2xl ${
             darkMode ? 'bg-gray-800' : 'bg-gray-200'
           }`}
         >
