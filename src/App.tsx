@@ -1,13 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TransactionList from './pages/TransactionPage';
-
+import Login from  './components/Login';
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import TransactionsBySchoolPage from './pages/TransactionBySchool';
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
 
-        <Route path="/" element={<TransactionList />} />
+        <Route path="/transactions" element={<TransactionList />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/transactions-by-school" element={<TransactionsBySchoolPage />} />
+        {/* Add more routes as needed */}
       </Routes>
     </Router>
   );
