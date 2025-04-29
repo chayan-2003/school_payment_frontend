@@ -5,6 +5,7 @@ import Login from  './components/Login';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import TransactionsBySchoolPage from './pages/TransactionBySchool';
+import TransactionStatusPage from './pages/TransactionStatus';
 const App: React.FC = () => {
   return (
     <Router>
@@ -15,6 +16,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/transactions-by-school" element={<TransactionsBySchoolPage />} />
+        <Route path="/transaction-status" element={<TransactionStatusPage />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

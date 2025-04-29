@@ -1,8 +1,9 @@
-import  { useEffect, useState, ReactNode } from 'react';
+import { useEffect, useState, ReactNode } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchTransactions } from '../services/transactionService.ts';
 
 type Txn = {
+  customOrderId: ReactNode;
   custom_order_id: ReactNode;
   collect_id: string;
   school_id: string;
@@ -140,7 +141,7 @@ const TransactionsTable = ({ darkMode }: { darkMode: boolean }) => {
                 </tr>
               ) : (
                 transactions.map((txn, idx) => (
-                  <tr key={txn.collect_id}>
+                  <tr key={`${txn.collect_id}-${txn.payment_time}-${idx}`}>
                     <td className="py-3 px-4">{(currentPage - 1) * pageSize + idx + 1}</td>
                     <td className="py-3 px-4">{txn.school_id}</td>
                     <td className="py-3 px-4">{formatDate(txn.payment_time)}</td>
@@ -149,7 +150,7 @@ const TransactionsTable = ({ darkMode }: { darkMode: boolean }) => {
                     <td className="py-3 px-4">₹{txn.transaction_amount}</td>
                     <td className="py-3 px-4">{txn.gateway_name}</td>
                     <td className={`py-3 px-4 font-semibold ${statusColor(txn.status)}`}>{txn.status}</td>
-                    <td className="py-3 px-4">{txn.custom_order_id}</td>
+                    <td className="py-3 px-4">{txn.customOrderId}</td>
                   </tr>
                 ))
               )}
