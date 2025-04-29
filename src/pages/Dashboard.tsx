@@ -9,7 +9,7 @@ const Dashboard = () => {
     const checkAuth = async () => {
       try {
         // Call the /users/me endpoint to verify authentication
-         await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/me`, {
+        await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/me`, {
           withCredentials: true, // Ensures cookies are sent
         });
         console.log('User is authenticated');

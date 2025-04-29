@@ -14,7 +14,7 @@ const LoginPage = () => {
     try {
       // Make an API call to the backend login endpoint
       const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
+     `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
         { email, password },
         { withCredentials: true } // Ensures cookies are sent/received
       );

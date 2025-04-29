@@ -4,7 +4,7 @@ import { fetchTransactions } from '../services/transactionService.ts';
 
 type Txn = {
   customOrderId: ReactNode;
-  custom_order_id: ReactNode;
+  custom_order_id: string;
   collect_id: string;
   school_id: string;
   gateway_name: string;
@@ -150,7 +150,7 @@ const TransactionsTable = ({ darkMode }: { darkMode: boolean }) => {
                     <td className="py-3 px-4">₹{txn.transaction_amount}</td>
                     <td className="py-3 px-4">{txn.gateway_name}</td>
                     <td className={`py-3 px-4 font-semibold ${statusColor(txn.status)}`}>{txn.status}</td>
-                    <td className="py-3 px-4">{txn.customOrderId}</td>
+                    <td className="py-3 px-4">{txn.custom_order_id}</td>
                   </tr>
                 ))
               )}
