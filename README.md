@@ -50,8 +50,8 @@ The `Transactions by School` page is designed to work seamlessly across differen
 
 | Orientation | Screenshot |
 |-------------|------------|
-| Mobile View (Light) | ![](https://i.ibb.co/6cG381GX/Screenshot-2025-04-30-191039.png)|
 | Desktop View (Dark) | ![](https://i.ibb.co/vxjWZ5t8/Screenshot-2025-04-30-190443.png)|
+| Mobile View (Light) | ![](https://i.ibb.co/6cG381GX/Screenshot-2025-04-30-191039.png)|
 ## Component Structure
 
 ### 1. **Filter Component**
