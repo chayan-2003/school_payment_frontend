@@ -36,5 +36,56 @@ The page consists of the following components:
 3. The Transaction Table reads the URL and requests data accordingly.
 4. The Transaction Service fetches the filtered data.
 5. The table updates with the new transaction records.
+6. Got it! Here's a refined summary for your GitHub README, starting with the responsive layout and summarizing the core functionality:
+
+---
+
+# Transactions by School - Page Overview
+
+This page allows users to view transactions for a selected school. The design is fully responsive and adapts to various screen sizes. Below is an overview of the page, including responsive layouts, component structure, and the flow of data.
+
+## Responsive Layout Previews
+
+The `Transactions by School` page is designed to work seamlessly across different screen sizes. Here are the layout previews:
+
+| **Orientation** | **Screenshot** |
+|-----------------|----------------|
+| **Desktop View (Light)** | ![Desktop Light](https://ibb.co/qY3nFgv7) |
+| **Desktop View (Dark)**  | ![Desktop Dark](#) |
+| **Mobile View (Light)**  | ![Mobile Light](#) |
+
+## Component Structure
+
+### 1. **Filter Component**
+- Allows users to filter transactions by school.
+- Updates the page URL with the selected filter state.
+- Used to control which transactions are displayed in the table.
+
+### 2. **Transaction Table Component**
+- Reads filter values from the URL.
+- Fetches and displays transaction data based on the selected filter values.
+
+### 3. **Transaction Service**
+- Handles the fetching of transaction data.
+- Acts as an interface between the frontend and the backend or mock data source.
+
+## Flow Summary
+
+1. **User applies filters** through the Filter component.
+2. **URL is updated** with the current filter state.
+3. The **Transaction Table** reads the URL and makes a request for filtered data.
+4. The **Transaction Service** fetches the filtered transactions.
+5. The **Transaction Table** updates to display the fetched transactions.
+
+## Key Features
+
+- **Responsive Layout**: Fully optimized for desktop and mobile views.
+- **User Authentication**: Verifies user authentication before loading the page.
+- **Theme Toggle**: Allows users to toggle between light and dark themes.
+- **Transaction Fetching**: Displays transactions based on the selected school, with loading and error handling.
+
+---
+
+This summary should help convey the core functionality of the page in a concise manner for your GitHub README. Let me know if you'd like to add anything else!
 
 
