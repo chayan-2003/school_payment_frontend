@@ -80,7 +80,7 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
 
   return (
     <div
-      className={`rounded-lg p-6 shadow-md ${
+      className={`rounded-lg p-6 shadow-md flex flex-col ${
         darkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-700'
       }`}
     >
@@ -89,7 +89,7 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
         <h3 className={`text-lg font-semibold ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
           Filter Transactions
         </h3>
-        
+        {/* You can add a search input here if needed */}
       </div>
 
       {/* Filters - Modern Grid Layout */}
@@ -242,48 +242,45 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
           />
         </div>
 
-        {/* Date Range Container */}
-        <div className="lg:col-span-2 flex items-center space-x-2 justify-end">
-          {/* Start Date */}
-          <div className="w-1/2">
-            <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              Start Date
-            </label>
-            <div className={`mt-1 rounded-md shadow-sm ${darkMode ? 'bg-gray-700' : 'bg-white'} border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
-              <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                dateFormat="yyyy-MM-dd"
-                placeholderText="yyyy-mm-dd"
-                className={`block w-full py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-none ${
-                  darkMode ? 'bg-gray-700 text-gray-100 placeholder-gray-400' : 'bg-white text-gray-700'
-                }`}
-              />
-            </div>
+        {/* Start Date */}
+        <div>
+          <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+            Start Date
+          </label>
+          <div className={`mt-1 rounded-md shadow-sm ${darkMode ? 'bg-gray-700' : 'bg-white'} border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="yyyy-mm-dd"
+              className={`block w-full py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-none ${
+                darkMode ? 'bg-gray-700 text-gray-100 placeholder-gray-400' : 'bg-white text-gray-700'
+              }`}
+            />
           </div>
+        </div>
 
-          {/* End Date */}
-          <div className="w-1/2">
-            <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              End Date
-            </label>
-            <div className={`mt-1 rounded-md shadow-sm ${darkMode ? 'bg-gray-700' : 'bg-white'} border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
-              <DatePicker
-                selected={endDate}
-                onChange={(date) => setEndDate(date)}
-                dateFormat="yyyy-MM-dd"
-                placeholderText="yyyy-mm-dd"
-                className={`block w-full py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-none ${
-                  darkMode ? 'bg-gray-700 text-gray-100 placeholder-gray-400' : 'bg-white text-gray-700'
-                }`}
-              />
-            </div>
+        {/* End Date */}
+        <div>
+          <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+            End Date
+          </label>
+          <div className={`mt-1 rounded-md shadow-sm ${darkMode ? 'bg-gray-700' : 'bg-white'} border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="yyyy-mm-dd"
+              className={`block w-full py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-none ${
+                darkMode ? 'bg-gray-700 text-gray-100 placeholder-gray-400' : 'bg-white text-gray-700'
+              }`}
+            />
           </div>
         </div>
       </div>
 
       {/* Actions - Modern Alignment */}
-      <div className="mt-6 flex justify-end gap-x-3">
+      <div className="flex justify-end gap-x-3">
         <button
           type="button"
           className={`cursor-pointer rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
