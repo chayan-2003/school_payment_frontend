@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import Select, { MultiValue, Options } from 'react-select';
 import DatePicker from 'react-datepicker';
@@ -33,6 +33,7 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
 
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const formatDate = (date: Date | null): string | null => {
     if (!date) return null;
@@ -62,20 +63,40 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
     const formattedEndDate = formatDate(endDate);
     if (formattedStartDate) params.set('startDate', formattedStartDate);
     if (formattedEndDate) params.set('endDate', formattedEndDate);
+    if (searchTerm) params.set('search', searchTerm);
     params.set('page', '1');
+    navigate({ search: params.toString() });
+  };
+
+  const clearFilters = () => {
+    setSelectedSchools([]);
+    setSelectedStatuses([]);
+    setStartDate(null);
+    setEndDate(null);
+    setSearchTerm('');
+    const params = new URLSearchParams();
     navigate({ search: params.toString() });
   };
 
   return (
     <div
-      className={`rounded-2xl p-4 shadow flex flex-col md:flex-row md:items-end md:gap-4 gap-6 ${
-        darkMode ? 'bg-gray-800 text-white' : 'bg-gray-50 text-gray-900'
+      className={`rounded-lg p-6 shadow-md ${
+        darkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-700'
       }`}
     >
-      {/* Selects */}
-      <div className="flex flex-col md:flex-row gap-4 flex-grow">
-        <div className="flex flex-col w-full md:w-1/3">
-          <label className={`text-xs font-medium mb-1 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+      {/* Header with Title and Search */}
+      <div className="mb-6 flex items-center justify-between">
+        <h3 className={`text-lg font-semibold ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
+          Filter Transactions
+        </h3>
+        
+      </div>
+
+      {/* Filters - Modern Grid Layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-4 mb-6">
+        {/* School ID */}
+        <div>
+          <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
             School ID
           </label>
           <Select
@@ -84,14 +105,18 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
             value={selectedSchools}
             onChange={setSelectedSchools}
             placeholder="Select school(s)…"
-            className="text-sm"
+            className="text-sm mt-1"
             classNamePrefix="react-select"
             styles={{
-              control: (provided) => ({
+              control: (provided, state) => ({
                 ...provided,
                 backgroundColor: darkMode ? '#374151' : 'white',
-                borderColor: darkMode ? '#4B5563' : '#D1D5DB',
+                borderColor: state.isFocused ? '#6366f1' : darkMode ? '#4B5563' : '#D1D5DB',
                 color: darkMode ? 'white' : 'black',
+                boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(99, 102, 241, 0.25)' : '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
+                '&:hover': {
+                  borderColor: '#6366f1',
+                },
               }),
               input: (provided) => ({
                 ...provided,
@@ -101,16 +126,51 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
                 ...provided,
                 color: darkMode ? 'white' : 'black',
               }),
+              multiValue: (provided) => ({
+                ...provided,
+                backgroundColor: darkMode ? '#4B5563' : '#F3F4F6',
+                color: darkMode ? 'white' : 'black',
+                borderRadius: '0.375rem',
+              }),
               multiValueLabel: (provided) => ({
                 ...provided,
                 color: darkMode ? 'white' : 'black',
+              }),
+              multiValueRemove: (provided) => ({
+                ...provided,
+                color: darkMode ? '#D1D5DB' : '#6B7280',
+                ':hover': {
+                  backgroundColor: darkMode ? '#6B7280' : '#E5E7EB',
+                  color: darkMode ? 'white' : 'black',
+                },
+              }),
+              placeholder: (provided) => ({
+                ...provided,
+                color: darkMode ? '#9CA3AF' : '#6B7280',
+              }),
+              menu: (provided) => ({
+                ...provided,
+                backgroundColor: darkMode ? '#374151' : 'white',
+                color: darkMode ? 'white' : 'black',
+                borderRadius: '0.375rem',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+              }),
+              option: (provided, state) => ({
+                ...provided,
+                backgroundColor: state.isSelected
+                  ? '#6366f1'
+                  : state.isFocused
+                  ? darkMode ? '#4A5568' : '#F9FAFB'
+                  : darkMode ? '#374151' : 'white',
+                color: state.isSelected ? 'white' : darkMode ? 'white' : 'black',
               }),
             }}
           />
         </div>
 
-        <div className="flex flex-col w-full md:w-1/3">
-          <label className={`text-xs font-medium mb-1 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+        {/* Status */}
+        <div>
+          <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
             Status
           </label>
           <Select
@@ -119,14 +179,18 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
             value={selectedStatuses}
             onChange={setSelectedStatuses}
             placeholder="Select status(es)…"
-            className="text-sm"
+            className="text-sm mt-1"
             classNamePrefix="react-select"
             styles={{
-              control: (provided) => ({
+              control: (provided, state) => ({
                 ...provided,
                 backgroundColor: darkMode ? '#374151' : 'white',
-                borderColor: darkMode ? '#4B5563' : '#D1D5DB',
+                borderColor: state.isFocused ? '#6366f1' : darkMode ? '#4B5563' : '#D1D5DB',
                 color: darkMode ? 'white' : 'black',
+                boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(99, 102, 241, 0.25)' : '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
+                '&:hover': {
+                  borderColor: '#6366f1',
+                },
               }),
               input: (provided) => ({
                 ...provided,
@@ -136,56 +200,104 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
                 ...provided,
                 color: darkMode ? 'white' : 'black',
               }),
+              multiValue: (provided) => ({
+                ...provided,
+                backgroundColor: darkMode ? '#4B5563' : '#F3F4F6',
+                color: darkMode ? 'white' : 'black',
+                borderRadius: '0.375rem',
+              }),
               multiValueLabel: (provided) => ({
                 ...provided,
                 color: darkMode ? 'white' : 'black',
+              }),
+              multiValueRemove: (provided) => ({
+                ...provided,
+                color: darkMode ? '#D1D5DB' : '#6B7280',
+                ':hover': {
+                  backgroundColor: darkMode ? '#6B7280' : '#E5E7EB',
+                  color: darkMode ? 'white' : 'black',
+                },
+              }),
+              placeholder: (provided) => ({
+                ...provided,
+                color: darkMode ? '#9CA3AF' : '#6B7280',
+              }),
+              menu: (provided) => ({
+                ...provided,
+                backgroundColor: darkMode ? '#374151' : 'white',
+                color: darkMode ? 'white' : 'black',
+                borderRadius: '0.375rem',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+              }),
+              option: (provided, state) => ({
+                ...provided,
+                backgroundColor: state.isSelected
+                  ? '#6366f1'
+                  : state.isFocused
+                  ? darkMode ? '#4A5568' : '#F9FAFB'
+                  : darkMode ? '#374151' : 'white',
+                color: state.isSelected ? 'white' : darkMode ? 'white' : 'black',
               }),
             }}
           />
         </div>
 
-        <div className="flex flex-col w-full md:w-1/3">
-          <label className={`text-xs font-medium mb-1 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            Start Date
-          </label>
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            dateFormat="yyyy-MM-dd"
-            placeholderText="Start date"
-            className={`block w-full rounded-md p-2 text-sm focus:ring-2 focus:ring-indigo-500 ${
-              darkMode
-                ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
-                : 'bg-white border-gray-300 text-gray-900'
-            }`}
-          />
-        </div>
+        {/* Date Range Container */}
+        <div className="lg:col-span-2 flex items-center space-x-2 justify-end">
+          {/* Start Date */}
+          <div className="w-1/2">
+            <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Start Date
+            </label>
+            <div className={`mt-1 rounded-md shadow-sm ${darkMode ? 'bg-gray-700' : 'bg-white'} border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="yyyy-mm-dd"
+                className={`block w-full py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-none ${
+                  darkMode ? 'bg-gray-700 text-gray-100 placeholder-gray-400' : 'bg-white text-gray-700'
+                }`}
+              />
+            </div>
+          </div>
 
-        <div className="flex flex-col w-full md:w-1/3">
-          <label className={`text-xs font-medium mb-1 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            End Date
-          </label>
-          <DatePicker
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-            dateFormat="yyyy-MM-dd"
-            placeholderText="End date"
-            className={`block w-full rounded-md p-2 text-sm focus:ring-2 focus:ring-indigo-500 ${
-              darkMode
-                ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
-                : 'bg-white border-gray-300 text-gray-900'
-            }`}
-          />
+          {/* End Date */}
+          <div className="w-1/2">
+            <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              End Date
+            </label>
+            <div className={`mt-1 rounded-md shadow-sm ${darkMode ? 'bg-gray-700' : 'bg-white'} border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
+              <DatePicker
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="yyyy-mm-dd"
+                className={`block w-full py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-none ${
+                  darkMode ? 'bg-gray-700 text-gray-100 placeholder-gray-400' : 'bg-white text-gray-700'
+                }`}
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Button */}
-      <div className="w-full md:w-auto">
+      {/* Actions - Modern Alignment */}
+      <div className="mt-6 flex justify-end gap-x-3">
+        <button
+          type="button"
+          className={`cursor-pointer rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+            darkMode ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' : ''
+          }`}
+          onClick={clearFilters}
+        >
+          Clear
+        </button>
         <button
           onClick={applyFilters}
-          className="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 transition-colors text-white font-medium text-sm rounded-lg px-5 py-2.5"
+          className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 transition-colors text-white font-medium text-sm rounded-md px-5 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
-          Apply Filters
+          Apply
         </button>
       </div>
     </div>

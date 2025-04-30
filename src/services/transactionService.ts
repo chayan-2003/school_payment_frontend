@@ -63,7 +63,8 @@ export const fetchTransactions = async ({
 
   try {
     const response = await api.get(`/transactions?${params.toString()}`);
-    return response.data; // Expected response should contain data and pagination info
+    const { data, meta } = response.data; // Extract data and meta from the response
+    return { data, meta }; // Return both data and meta
   } catch (error) {
     console.error('Failed to fetch transactions:', error);
     throw new Error('Failed to fetch transactions');

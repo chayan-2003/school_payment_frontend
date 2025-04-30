@@ -8,6 +8,12 @@ import TransactionsBySchoolPage from './pages/TransactionBySchool';
 import TransactionStatusPage from './pages/TransactionStatus';
 import TransactionDashboard from './pages/TransactionDashboard';
 const App: React.FC = () => {
+  const [darkMode, setDarkMode] = React.useState(false);
+
+  const toggleTheme = () => {
+    setDarkMode((prevMode) => !prevMode);
+  };
+
   return (
     <Router>
       <Routes>
@@ -18,7 +24,7 @@ const App: React.FC = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/transactions-by-school" element={<TransactionsBySchoolPage />} />
         <Route path="/transaction-status" element={<TransactionStatusPage />} />
-        <Route path="/transaction-dashboard" element={<TransactionDashboard />} />
+        <Route path="transaction-dashboard" element={<TransactionDashboard darkMode={darkMode} toggleTheme={toggleTheme} />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>
