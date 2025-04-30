@@ -1,7 +1,3 @@
-Sure! Here's a clean version of your `README` section without any emojis or extra styling:
-
----
-
 ## Transaction Table Page Overview
 
 ### Responsive Layout Previews
@@ -41,6 +37,4 @@ The page consists of the following components:
 4. The Transaction Service fetches the filtered data.
 5. The table updates with the new transaction records.
 
----
 
-Let me know if you want me to help write this in a different format or add more technical detail.
