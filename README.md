@@ -1,4 +1,4 @@
-## Transaction Table Page Overview
+![image](https://github.com/user-attachments/assets/4aafdd8e-99ae-420a-b525-360fd8cc5d2c)## Transaction Table Page Overview
 
 ### Responsive Layout Previews
 
@@ -48,12 +48,11 @@ This page allows users to view transactions for a selected school. The design is
 
 The `Transactions by School` page is designed to work seamlessly across different screen sizes. Here are the layout previews:
 
-| **Orientation** | **Screenshot** |
-|-----------------|----------------|
-| **Desktop View (Light)** | ![Desktop Light](https://ibb.co/qY3nFgv7) |
-| **Desktop View (Dark)**  | ![Desktop Dark](#) |
-| **Mobile View (Light)**  | ![Mobile Light](#) |
-
+| Orientation | Screenshot |
+|-------------|------------|
+| Desktop View (Light) | ![](https://ibb.co/qY3nFgv7) |
+| Desktop View (Dark) | ![](https://ibb.co/gMR8z1nC)|
+| Mobile View (Light) | ![](https://i.ibb.co/ZzLctsML/Transaction-Light-Mode-Mobile-png.png) |
 ## Component Structure
 
 ### 1. **Filter Component**
