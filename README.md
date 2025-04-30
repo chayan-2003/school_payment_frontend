@@ -1,4 +1,4 @@
-## Transaction Table Page Overview
+![image](https://github.com/user-attachments/assets/fcda95a1-71cc-49c9-9e6f-f34dd9c1c1dd)## Transaction Table Page Overview
 
 ### Responsive Layout Previews
 
@@ -81,6 +81,55 @@ The `Transactions by School` page is designed to work seamlessly across differen
 - **User Authentication**: Verifies user authentication before loading the page.
 - **Theme Toggle**: Allows users to toggle between light and dark themes.
 - **Transaction Fetching**: Displays transactions based on the selected school, with loading and error handling.
+
+Here’s the clean, professional version without any emojis or embellishments for your `TransactionStatusPage` section of the README:
+
+---
+
+## Transaction Status - Page Overview
+
+This page enables users to check the status of a transaction using a Custom Order ID. The layout is fully responsive and includes user feedback through status icons, loading indicators, and error messages.
+
+### Responsive Layout Previews
+
+| Orientation | Screenshot |
+|-------------|------------|
+| Desktop View (Light) | ![](https://i.ibb.co/XxSrHDYt/Screenshot-2025-04-30-193413.png) |
+| Tablet View (Light) | ![](https://i.ibb.co/d01Dx69h/Screenshot-2025-04-30-193439.png) |
+| Mobile View (Dark) | ![](https://i.ibb.co/MDp1PL7R/Screenshot-2025-04-30-193851.png) |
+
+### Component Structurehttps://i.ibb.co/MDp1PL7R/Screenshot-2025-04-30-193851.png
+
+
+1. **Order ID Input and Submit Button**  
+   Allows the user to input a custom order ID to fetch transaction data.
+
+2. **Transaction Display Section**  
+   Renders transactions with status, amount, gateway, and timestamp.  
+   Uses visual indicators for status (Pending, Failed, Success).
+
+3. **Transaction Service**  
+   Handles API calls to fetch transaction status by order ID.  
+   Implements loading and error handling logic.
+
+### Flow Summary
+
+1. User inputs a Custom Order ID and submits.
+2. The component makes a GET request to the backend.
+3. If transactions are found, they are displayed in a table.
+4. If no data is found or an error occurs, the page displays a message accordingly.
+
+### Key Features
+
+- Responsive Layout: Adapts to different screen sizes.
+- Order-based Query: Fetches transactions using a unique order ID.
+- Status Indicator: Displays transaction status with visual distinction.
+- Error and Loading Handling: User is informed of request states and issues.
+- Theme Toggle: Supports both dark and light themes.
+
+---
+
+Let me know if you'd like to add installation or usage instructions too.
 
 
 
