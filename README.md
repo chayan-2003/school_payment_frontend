@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/fcda95a1-71cc-49c9-9e6f-f34dd9c1c1dd)## Transaction Table Page Overview
+## Transaction Table Page Overview
 
 ### Responsive Layout Previews
 
