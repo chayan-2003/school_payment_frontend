@@ -12,7 +12,7 @@ The Transaction Table page is designed to be fully responsive across different s
 |-------------|------------|
 | Desktop View (Light) | ![](https://i.ibb.co/8LLXqZ44/Transaction-Table-Light-Desktop-png.png) |
 | Desktop View (Dark) | ![](https://i.ibb.co/4Zj4CZsg/Transaction-Table-Dark-Desktop-png.png)|
-| Mobile View (Portrait) | ![](screenshots/Transaction_Light_Mode_Mobile.png) |
+| Mobile View (Light) | ![](https://i.ibb.co/ZzLctsML/Transaction-Light-Mode-Mobile-png.png) |
 | Mobile View (Landscape) | ![](screenshots/Transaction_Dark_Mode_Mobile.png) |
 
 ### Component Structure
