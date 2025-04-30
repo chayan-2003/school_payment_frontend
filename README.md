@@ -50,9 +50,8 @@ The `Transactions by School` page is designed to work seamlessly across differen
 
 | Orientation | Screenshot |
 |-------------|------------|
-| Desktop View (Light) | ![](https://ibb.co/qY3nFgv7) |
-| Desktop View (Dark) | ![](https://ibb.co/gMR8z1nC)|
-| Mobile View (Light) | ![](https://i.ibb.co/ZzLctsML/Transaction-Light-Mode-Mobile-png.png) |
+| Desktop View (Light) | ![](https://i.ibb.co/PGvYzWdF/Screenshot-2025-04-30-185841.png) |
+| Desktop View (Dark) | ![](https://i.ibb.co/vxjWZ5t8/Screenshot-2025-04-30-190443.png)|
 ## Component Structure
 
 ### 1. **Filter Component**
@@ -83,8 +82,6 @@ The `Transactions by School` page is designed to work seamlessly across differen
 - **Theme Toggle**: Allows users to toggle between light and dark themes.
 - **Transaction Fetching**: Displays transactions based on the selected school, with loading and error handling.
 
----
 
-This summary should help convey the core functionality of the page in a concise manner for your GitHub README. Let me know if you'd like to add anything else!
 
 
