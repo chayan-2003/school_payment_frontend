@@ -66,6 +66,7 @@ const TransactionsBySchoolPage = () => {
   }, []);
 
   const fetchTransactionsBySchool = async () => {
+    setTransactions([]); // Clear previous transactions
     if (!schoolId) {
       setError('Please select a school.');
       return;
@@ -77,6 +78,8 @@ const TransactionsBySchoolPage = () => {
       const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/transactions/school/${schoolId}`, {
         withCredentials: true,
       });
+      //first clear the previous transactions
+      //setTransactions([]);
       setTransactions(res.data.transactions);
       setLoading(false);
     } catch (err) {
@@ -102,7 +105,7 @@ const TransactionsBySchoolPage = () => {
 
   return (
     <motion.div
-      className={`min-h-screen py-10 ${bgColorClass} transition-colors duration-300`}
+      className={`min-h-screen py-10 ${bgColorClass} transition-colors duration-300 `}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -203,7 +206,7 @@ const TransactionsBySchoolPage = () => {
           )}
 
           {transactions.length > 0 && (
-            <div className="mt-24 overflow-x-auto overflow-y-auto max-h-[600px]">
+            <div className="mt-24 overflow-x-auto overflow-y-auto max-h-[600px] ">
               <h2 className={`text-xl font-semibold ${textColorClass} mb-4`}>Transaction Details</h2>
               <table className={`min-w-full leading-normal border rounded-md ${darkMode ? 'border-gray-500' : 'border-gray-200'}`}>
                 <thead>
@@ -232,10 +235,24 @@ const TransactionsBySchoolPage = () => {
                       <td className={`px-3 md:px-5 py-3 border-b ${tableDataClass} text-xs md:text-sm ${textColorClass}`}>₹{transaction.order_amount}</td>
                       <td className={`px-3 md:px-5 py-3 border-b ${tableDataClass} text-xs md:text-sm ${textColorClass}`}>₹{transaction.transaction_amount}</td>
                       <td className={`px-5 py-3 border-b ${tableDataClass} text-sm`}>
-                        <span className={`inline-block py-1 px-2 rounded-full text-xs font-semibold ${transaction.status === 'SUCCESS' ? (darkMode ? 'bg-green-600 text-green-200' : 'bg-green-200 text-green-800') :
-                          transaction.status === 'FAILED' ? (darkMode ? 'bg-red-600 text-red-200' : 'bg-red-200 text-red-800') :
-                            (darkMode ? 'bg-yellow-600 text-yellow-200' : 'bg-yellow-200 text-yellow-800')
-                          }`}>
+                        <span
+                          className={`inline-block py-1 px-2 rounded-full text-xs font-semibold ${transaction.status === 'Success'
+                              ? darkMode
+                                ? 'bg-green-600 text-green-100'
+                                : 'bg-green-100 text-green-800'
+                              : transaction.status === 'Failed'
+                                ? darkMode
+                                  ? 'bg-red-600 text-red-100'
+                                  : 'bg-red-100 text-red-800'
+                                : transaction.status === 'Pending'
+                                  ? darkMode
+                                    ? 'bg-yellow-600 text-yellow-100'
+                                    : 'bg-yellow-100 text-yellow-800'
+                                  : darkMode
+                                    ? 'bg-gray-600 text-gray-100'
+                                    : 'bg-gray-100 text-gray-800'
+                            }`}
+                        >
                           {transaction.status}
                         </span>
                       </td>
