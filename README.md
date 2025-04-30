@@ -129,7 +129,7 @@ This page enables users to check the status of a transaction using a Custom Orde
 
 ---
 
-Let me know if you'd like to add installation or usage instructions too.
+
 
 
 
