@@ -10,7 +10,7 @@ The Transaction Table page is designed to be fully responsive across different s
 
 | Orientation | Screenshot |
 |-------------|------------|
-| Desktop View(Light) | ![](screenshots/TransactionTable_Light_Desktop.png) |
+| Desktop View(Light) | ![]([url=https://ibb.co/sddtnYJJ][img]https://i.ibb.co/8LLXqZ44/Transaction-Table-Light-Desktop-png.png[/img][/url]) |
 | Desktop View (Dark)| ![](screenshots/TransactionTable_Dark_Desktop.png) |
 | Mobile View (Portrait) | ![](screenshots/Transaction_Light_Mode_Mobile.png) |
 | Mobile View (Landscape) | ![](screenshots/Transaction_Dark_Mode_Mobile.png) |
