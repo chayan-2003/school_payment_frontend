@@ -138,6 +138,7 @@ This page enables users to check the detailed realtime visual  analytics of the 
 | Orientation | Screenshot |
 |-------------|------------|
 | Desktop View (Light) | ![](https://i.ibb.co/RG42zX6g/Screenshot-2025-05-01-053915.png) |
+---
 
 ##Payments - Page Overview
 
