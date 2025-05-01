@@ -119,13 +119,6 @@ This page enables users to check the status of a transaction using a Custom Orde
 3. If transactions are found, they are displayed in a table.
 4. If no data is found or an error occurs, the page displays a message accordingly.
 
-### Key Features
-
-- Responsive Layout: Adapts to different screen sizes.
-- Order-based Query: Fetches transactions using a unique order ID.
-- Status Indicator: Displays transaction status with visual distinction.
-- Error and Loading Handling: User is informed of request states and issues.
-- Theme Toggle: Supports both dark and light themes.
 
 ---
 
@@ -224,14 +217,6 @@ The **Transaction Dashboard** provides a comprehensive view of transaction data,
 
 ---
 
-## Key Technologies Used
-
-- **React**: For building the UI components.
-- **Recharts**: For rendering the pie and line charts.
-- **Tailwind CSS**: For responsive and dynamic styling.
-- **React Icons**: For icons in summary cards and buttons.
-- **LocalStorage**: For persisting the dark mode preference.
-- **Axios**: For API calls to fetch transaction data.
 
 ---
 
@@ -310,13 +295,6 @@ The page consists of the following key components:
 
 ---
 
-### Technologies Used
-
-- **React**: For building the UI components.
-- **Axios**: For making API requests to the backend.
-- **Sonner (Toast Notifications)**: For displaying success and error messages.
-- **Tailwind CSS**: For responsive and dynamic styling.
-- **Framer Motion**: For smooth animations and transitions.
 
 ---
 
