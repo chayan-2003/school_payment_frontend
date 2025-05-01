@@ -5,7 +5,6 @@ const api = axios.create({
   withCredentials: true,
 });
 
-
 export const fetchTransactions = async ({
   status,
   school_id,

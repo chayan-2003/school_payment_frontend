@@ -3,31 +3,41 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); // Loading state
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true); // Start loading
+
+    // Validation
+    if (!name || !email || !password) {
+      toast.error('Please fill in all fields.');
+      setLoading(false); // Stop loading
+      return;
+    }
+    if (password.length < 6 || password.length > 20) {
+      toast.error('Password must be between 6 and 20 characters long.');
+      setLoading(false); // Stop loading
+      return;
+    }
+
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
-        { email, password },
+        `${import.meta.env.VITE_API_BASE_URL}/auth/register`,
+        { name, email, password },
         { withCredentials: true }
       );
-      toast.success('Login successful!');
-      navigate('/dashboard');
+      toast.success('Registration successful!');
+      navigate('/login');
       console.log(response.data);
     } catch (err: unknown) {
-      if (axios.isAxiosError(err) && err.response?.data?.message) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.error('Login failed. Please try again.');
-      }
-      console.error('Login failed:', err);
+      console.error('Registration failed:', err);
+      toast.error('Registration failed. Please try again.');
     } finally {
       setLoading(false); // Stop loading
     }
@@ -51,18 +61,24 @@ const LoginPage = () => {
       {/* Right Panel */}
       <div className="w-1/2 flex items-center justify-center bg-white">
         <div className="w-full max-w-sm">
-          <h2 className="text-2xl font-semibold mb-2">Welcome Back!</h2>
-          <p className="text-sm mb-6 text-gray-500">
-            Don’t have an account? <a href="/register" className="text-indigo-600 font-medium hover:underline">Create a new account now</a>, it's FREE! Takes less than a minute.
-          </p>
+          <h2 className="text-2xl font-semibold mb-4 text-center">Create an Account</h2>
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleRegister} className="space-y-4">
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your name"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              required
+            />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              required
             />
             <input
               type="password"
@@ -70,6 +86,7 @@ const LoginPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              required
             />
             <button
               type="submit"
@@ -98,13 +115,13 @@ const LoginPage = () => {
                   ></path>
                 </svg>
               ) : (
-                'Login Now'
+                'Register Now'
               )}
             </button>
           </form>
 
           <div className="mt-4 text-sm text-center text-gray-500">
-            New User? <a href="/register" className="text-indigo-600 hover:underline">Register</a>
+            Already have an account? <a href="/login" className="text-indigo-600 hover:underline">Login here</a>
           </div>
         </div>
       </div>
@@ -112,4 +129,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

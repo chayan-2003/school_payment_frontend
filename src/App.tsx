@@ -7,12 +7,10 @@ import Dashboard from './pages/Dashboard';
 import TransactionsBySchoolPage from './pages/TransactionBySchool';
 import TransactionStatusPage from './pages/TransactionStatus';
 import TransactionDashboard from './pages/TransactionDashboard';
+import PaymentPage from './pages/Payment';
+import RegisterPage from './components/Register';
 const App: React.FC = () => {
-  const [darkMode, setDarkMode] = React.useState(false);
-
-  const toggleTheme = () => {
-    setDarkMode((prevMode) => !prevMode);
-  };
+ 
 
   return (
     <Router>
@@ -22,9 +20,12 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/register" element={<RegisterPage />} />
+
         <Route path="/transactions-by-school" element={<TransactionsBySchoolPage />} />
         <Route path="/transaction-status" element={<TransactionStatusPage />} />
-        <Route path="transaction-dashboard" element={<TransactionDashboard darkMode={darkMode} toggleTheme={toggleTheme} />} />
+        <Route path="transaction-dashboard" element={<TransactionDashboard  />} />
+        <Route path="/payment" element={<PaymentPage />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

@@ -133,7 +133,9 @@ const Dashboard = () => {
       </header>
 
       {/* Dashboard Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full max-w-4xl mx-auto">
+      {/* Dashboard Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mx-auto">
+        {/* Top Row: Three Cards */}
         <motion.div
           onClick={() => navigate('/transaction-dashboard')}
           className={cardBaseClass}
@@ -158,7 +160,7 @@ const Dashboard = () => {
             </motion.span>
           </motion.div>
         </motion.div>
-        {/* Card 1 */}
+
         <motion.div
           onClick={() => navigate('/transactions')}
           className={cardBaseClass}
@@ -184,7 +186,6 @@ const Dashboard = () => {
           </motion.div>
         </motion.div>
 
-        {/* Card 2 */}
         <motion.div
           onClick={() => navigate('/transactions-by-school')}
           className={cardBaseClass}
@@ -209,8 +210,10 @@ const Dashboard = () => {
             </motion.span>
           </motion.div>
         </motion.div>
+      </div>
 
-        {/* Card 3 */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl mx-auto mt-8">
+        {/* Bottom Row: Two Cards */}
         <motion.div
           onClick={() => navigate('/transaction-status')}
           className={cardBaseClass}
@@ -232,6 +235,31 @@ const Dashboard = () => {
               whileHover="hover"
             >
               Check Status
+            </motion.span>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          onClick={() => navigate('/payment')}
+          className={cardBaseClass}
+          variants={cardVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{ ...transition, delay: 0.6 }}
+        >
+          <motion.div className={iconWrapperClass} variants={iconVariants} whileHover="hover">
+            <FaChartPie className="h-6 w-6" />
+          </motion.div>
+          <h3 className={`mt-4 text-xl font-semibold ${textColorClass}`}>Payment Overview</h3>
+          <p className={`mt-2 text-sm ${subtleTextColorClass}`}>Manage and track all payment-related activities.</p>
+          <motion.div className="mt-6">
+            <motion.span
+              className={`inline-block py-1 px-2 rounded-full text-xs font-semibold ${accentColorClass} bg-indigo-500/10`}
+              variants={badgeVariants}
+              whileHover="hover"
+            >
+              View Payments
             </motion.span>
           </motion.div>
         </motion.div>

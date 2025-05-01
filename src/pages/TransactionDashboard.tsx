@@ -1,347 +1,227 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { fetchTransactions } from '../services/transactionService';
+import { useState, useEffect } from 'react';
 import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    Tooltip,
-    CartesianGrid,
-    PieChart,
-    Pie,
-    Cell,
-    ResponsiveContainer,
-    BarChart,
-    Bar,
-    //Legend,
+    LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer,
+    PieChart, Pie, Cell
 } from 'recharts';
-import { FaArrowLeft, FaMoon, FaSun } from 'react-icons/fa';
+import {
+    FaWallet, FaExchangeAlt, FaSchool, FaMoneyBillAlt, FaMoon, FaSun
+} from 'react-icons/fa';
+import {
+    fetchLineData, fetchRecentTransactions,
+    fetchTransactionSummary, fetchTransactionStatusSummary
+} from '../services/lineData';
+import { useNavigate } from 'react-router-dom';
 
-const COLORS = ['#4ade80', '#facc15', '#f87171', '#60a5fa', '#c084fc', '#f472b6', '#34d399'];
+const COLORS = ['#3B82F6', '#A78BFA', '#9CA3AF'];
 
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+export default function Dashboard() {
+    const [lineData, setLineData] = useState<{ month: string; amount: number }[]>([]);
+    const [recentTransactions, setRecentTransactions] = useState<{ date: string; id: string; amount: string }[]>([]);
+    const [statusData, setStatusData] = useState<{ name: string; value: number }[]>([]);
+    const [summary, setSummary] = useState<{
+        totalTransactionAmount: number;
+        totalTransactions: number;
+        totalRegisteredSchools: number;
+        totalOrderAmount: number;
+    } | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
-interface Transaction {
-    status?: string;
-    gateway_name?: string;
-    payment_time: string;
-    school_id?: string;
-}
-
-interface TimeSeriesData {
-    date: string;
-    count: number;
-}
-
-interface PieChartData {
-    name: string;
-    value: number;
-}
-
-interface BarChartData {
-    mode: string;
-    count: number;
-}
-
-interface TransactionDashboardProps {
-    darkMode: boolean;
-    toggleTheme: () => void;
-}
-const TransactionDashboard: React.FC<TransactionDashboardProps> = ({ darkMode, toggleTheme }) => {
+    // Dark mode state
+    const [darkMode, setDarkMode] = useState(false);
     const navigate = useNavigate();
-    const [statusCount, setStatusCount] = useState<Record<string, number>>({});
-    const [timeSeries, setTimeSeries] = useState<TimeSeriesData[]>([]);
-    const [paymentModeCount, setPaymentModeCount] = useState<Record<string, number>>({});
-    const [pendingBySchool, setPendingBySchool] = useState<Record<string, number>>({});
 
     useEffect(() => {
-        const loadData = async () => {
-            const result = await fetchTransactions({ limit: 100 });
-            const transactions: Transaction[] = result.data;
-
-            const counts: Record<string, number> = {};
-            const timeSeriesMap: Record<string, number> = {};
-            const paymentModeMap: Record<string, number> = {};
-            const pendingSchoolMap: Record<string, number> = {};
-
-            transactions.forEach((tx) => {
-                const status = tx.status?.toLowerCase();
-                const paymentMode = tx.gateway_name?.toLowerCase();
-                const date = new Date(tx.payment_time).toISOString().split('T')[0];
-                const schoolId = tx.school_id?.toString() || 'Unknown';
-
-                if (status) counts[status] = (counts[status] || 0) + 1;
-                if (paymentMode) paymentModeMap[paymentMode] = (paymentModeMap[paymentMode] || 0) + 1;
-                if (date) timeSeriesMap[date] = (timeSeriesMap[date] || 0) + 1;
-
-                if (status === 'pending') {
-                    pendingSchoolMap[schoolId] = (pendingSchoolMap[schoolId] || 0) + 1;
-                }
-            });
-
-            setStatusCount(counts);
-            setTimeSeries(Object.entries(timeSeriesMap).map(([date, count]) => ({ date, count })));
-            setPaymentModeCount(paymentModeMap);
-            setPendingBySchool(pendingSchoolMap);
-        };
-
-        loadData();
+        // Check dark mode from localStorage
+        const storedTheme = localStorage.getItem('darkMode');
+        if (storedTheme === 'true') setDarkMode(true);
     }, []);
 
-    const pieDataStatus: PieChartData[] = Object.entries(statusCount).map(([status, value]) => ({
-        name: capitalize(status),
-        value,
-    }));
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const [lineDataResult, recentTransactionsResult, summaryResult, statusResult] = await Promise.all([
+                    fetchLineData({}),
+                    fetchRecentTransactions({}),
+                    fetchTransactionSummary({}),
+                    fetchTransactionStatusSummary({}),
+                ]);
+                setLineData(lineDataResult);
+                setRecentTransactions(recentTransactionsResult);
+                setSummary(summaryResult);
+                setStatusData(statusResult);
+            } catch (err) {
+                console.error('Error fetching data:', err);
+                setError('Failed to fetch data.');
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    const barDataPayment: BarChartData[] = Object.entries(paymentModeCount).map(([mode, value]) => ({
-        mode: capitalize(mode),
-        count: value,
-    }));
+        fetchData();
+    }, []);
 
-    const pieDataPendingSchools: PieChartData[] = Object.entries(pendingBySchool).map(([school, value]) => ({
-        name: `${school}`,
-        value,
-    }));
-
-    const textColor = darkMode ? 'text-gray-300' : 'text-gray-700';
-    const headingTextColor = darkMode ? 'text-white' : 'text-gray-700';
-    const cardBgColor = darkMode ? 'bg-gray-800' : 'bg-white';
-    const cardBorderColor = darkMode ? 'border-gray-700' : 'border-gray-200';
-    const chartGridStroke = darkMode ? '#4a5568' : '#e5e7eb';
-    const tooltipBgColor = darkMode ? 'bg-gray-700' : 'bg-white';
-    const tooltipTextColor = darkMode ? '#cbd5e0' : '#374151';
-    const tooltipItemColor = darkMode ? '#64b5f6' : '#3b82f6'; // Keep blue for emphasis
-    const lineColor = '#3b82f6'; // Keep blue for the line chart
-    const axisTickColor = darkMode ? '#fff' : '#6b7280';
+    const toggleDarkMode = () => {
+        setDarkMode((prev) => {
+            const newValue = !prev;
+            localStorage.setItem('darkMode', newValue.toString());
+            return newValue;
+        });
+    };
 
     return (
-        <div className={`p-6 min-h-screen space-y-12 pb-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
-            {/* Theme Toggle Button */}
-            <div className="absolute top-4 right-4">
-                <button onClick={toggleTheme} className="cursor-pointer p-2 rounded-full shadow-md transition-colors duration-300 ease-in-out"
-                    style={{
-                        backgroundColor: darkMode ? '#1f2937' : '#ffffff',
-                        color: darkMode ? '#fcd34d' : '#1e3a8a',
-                    }}
-                    aria-label="Toggle Dark Mode"
-                >
-                    {darkMode ? <FaSun className="h-5 w-5 motion-reduce:transform-none" /> : <FaMoon className="h-5 w-5 motion-reduce:transform-none" />}
-                </button>
-            </div>
-            <button
-              onClick={() => navigate('/dashboard')}
-              className={`cursor-pointer px-2 py-2 rounded-md text-sm font-medium transition-all duration-200 ${darkMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-indigo-600 text-indigo-100 hover:bg-indigo-500'
-                }`}
-            >
-                <FaArrowLeft className="inline-block mr-1 animate-bounce" />
-                Go to Dashboard
-            </button>
-            <h2 className={`text-4xl font-extrabold ${headingTextColor} text-center flex items-center justify-center gap-2`}>
-                <span className="text-blue-500">📊</span>
-                Transaction Insights
-            </h2>
-            {/* Status Cards */}
-            <div className="flex justify-center ">
-                <div className="flex gap-6 flex-wrap justify-center max-w-4xl">
-                    {Object.entries(statusCount).map(([status, count]) => {
-                        const isMiddleThree = ['success', 'pending', 'failed'].includes(status.toLowerCase());
-                        const specialCardBg = darkMode ? 'bg-indigo-800 border-indigo-600' : 'bg-indigo-50 border-indigo-500';
-                        const specialCardText = darkMode ? 'text-indigo-200' : 'text-indigo-700';
-                        const defaultCardText = darkMode ? 'text-gray-400' : 'text-gray-600';
-                        const defaultCardValue = darkMode ? 'text-white' : 'text-gray-800';
+        <div className={`${darkMode ? 'bg-gray-900 text-white' : 'bg-blue-50 text-gray-900'} min-h-screen p-6 space-y-6`}>
+            {/* Toggle Button */}
+            <div className="flex justify-between items-center mb-6">
+                {/* Left Section: Transaction Analytics */}
+                <h1 className="text-3xl font-semibold">
+                    <span className={`${darkMode ? 'text-white' : 'text-black'}`}>Transaction</span>{' '}
+                    <span className={`${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>Analytics</span>
+                </h1>
+                {/* Right Section: Return to Dashboard and Dark Mode Toggle */}
+                <div className="flex items-center gap-4">
+                    {/* Return to Dashboard Button */}
+                    <button
+                        onClick={() => navigate('/dashboard')}
+                        className="px-4 py-2 bg-blue-500 text-white rounded-xl shadow hover:bg-blue-600 transition duration-200 text-sm"
+                    >
+                        Dashboard
+                    </button>
 
-                        return (
-                            <div
-                                key={status}
-                                className={`rounded-lg p-6 w-40 text-center shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105
-                                    ${isMiddleThree ? specialCardBg : cardBgColor}
-                                    ${isMiddleThree ? `border-2 ${darkMode ? 'border-indigo-600' : 'border-indigo-500'}` : `border ${cardBorderColor}`}
-                                `}
-                            >
-                                <h4 className={`text-sm font-medium uppercase tracking-wider mb-2 ${isMiddleThree ? specialCardText : defaultCardText}`}>{capitalize(status)}</h4>
-                                <p className={`text-2xl font-semibold ${isMiddleThree ? 'text-black' : defaultCardValue}`}>{count}</p>
-                            </div>
-                        );
-                    })}
+                    {/* Dark Mode Toggle */}
+                    <button
+                        onClick={toggleDarkMode}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl shadow border text-sm ${darkMode
+                                ? 'bg-gray-800 text-white border-gray-700 hover:bg-gray-700'
+                                : 'bg-white text-black border-gray-200 hover:bg-gray-100'
+                            }`}
+                    >
+                        {darkMode ? <FaSun /> : <FaMoon />}
+                      
+                    </button>
                 </div>
             </div>
 
-            {/* Charts Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                {/* Line Chart */}
-                <div className={`${cardBgColor} rounded-2xl shadow-xl p-6`}>
-                    <h4 className={`text-lg font-semibold ${textColor} mb-6 text-center`}>
-                        📈 Transactions Over Time
-                    </h4>
-                    <ResponsiveContainer width="100%" height={260}>
-                        <LineChart data={timeSeries} margin={{ top: 10, right: 20, bottom: 0, left: 0 }}>
-                            <CartesianGrid stroke={chartGridStroke} strokeDasharray="5 5" />
-                            <XAxis
-                                dataKey="date"
-                                tick={{ fontSize: 12, fill: axisTickColor }}
-                                axisLine={false}
-                                tickLine={false}
-                            />
-                            <YAxis
-                                tick={{ fontSize: 12, fill: axisTickColor }}
-                                axisLine={false}
-                                tickLine={false}
-                            />
-                            <Tooltip
-                                contentStyle={{ borderRadius: '10px', fontSize: '14px', backgroundColor: tooltipBgColor, color: tooltipTextColor }}
-                                labelStyle={{ color: tooltipTextColor }}
-                                itemStyle={{ color: tooltipItemColor }}
-                            />
-                            <Line
-                                type="monotone"
-                                dataKey="count"
-                                stroke={lineColor}
-                                strokeWidth={3}
-                                dot={{ r: 4, stroke: lineColor, strokeWidth: 2, fill: darkMode ? '#2d3748' : 'white' }}
-                                activeDot={{ r: 6 }}
-                            />
-                        </LineChart>
-                    </ResponsiveContainer>
-                </div>
+            {/* Summary Cards */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center" >
+                {[
+                    {
+                        label: 'Transaction Amount',
+                        value: `₹${summary?.totalTransactionAmount.toLocaleString() || '0'}`,
+                        icon: <FaWallet size={24} />,
+                    },
+                    {
+                        label: 'Number of Transactions',
+                        value: summary?.totalTransactions.toLocaleString() || '0',
+                        icon: <FaExchangeAlt size={24} />,
+                    },
+                    {
+                        label: 'Total Registered Schools',
+                        value: summary?.totalRegisteredSchools.toLocaleString() || '0',
+                        icon: <FaSchool size={24} />,
+                    },
+                    {
+                        label: 'Total Order Amount',
+                        value: `₹${summary?.totalOrderAmount.toLocaleString() || '0'}`,
+                        icon: <FaMoneyBillAlt size={24} />,
+                    },
+                ].map(({ label, value, icon }, i) => (
+                    <div
+                        key={i}
+                        className={`rounded-xl p-4 text-center shadow border transition duration-300 ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-200'
+                            }`}
+                    >
+                        <div className="text-2xl text-blue-500 mb-1">{icon}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-300">{label}</div>
+                        <div className="text-lg font-semibold mt-1">{value}</div>
+                    </div>
+                ))}
+            </div>
 
-                {/* Pie Chart - Status Distribution */}
-                <div className={`${cardBgColor} rounded-2xl shadow-xl p-6`}>
-                    <h4 className={`text-lg font-semibold ${textColor} text-center`}>
-                        🧩 Status Distribution
-                    </h4>
-                    <ResponsiveContainer width="100%" height={260}>
+            {/* Status Pie & Table */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className={`rounded-xl p-6 shadow border ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+                    <h3 className="text-lg font-semibold mb-4">Transaction Status</h3>
+                    <ResponsiveContainer width="100%" height={250}>
                         <PieChart>
                             <Pie
-                                data={pieDataStatus}
-                                dataKey="value"
-                                cx="50%"
-                                cy="50%"
-                                outerRadius={85}
-                                innerRadius={50}
-                                paddingAngle={4}
-                                isAnimationActive={true}
-                            >
-                                {pieDataStatus.map((_, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Pie>
-                            <Tooltip
-                                contentStyle={{ borderRadius: '10px', fontSize: '14px', backgroundColor: tooltipBgColor, color: tooltipTextColor }}
-                                itemStyle={{ color: tooltipTextColor }}
-                            />
-                        </PieChart>
-                    </ResponsiveContainer>
-
-                    {/* Clean, inline legend */}
-                    <div className="flex flex-wrap justify-center gap-4 text-sm">
-                        {pieDataStatus.map((item, index) => (
-                            <div key={item.name} className={`flex items-center space-x-2 ${textColor}`}>
-                                <span
-                                    className="inline-block w-3 h-3 rounded-full"
-                                    style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                                ></span>
-                                <span>{item.name} ({item.value})</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Bar Chart - Payment Modes */}
-                <div className={`${cardBgColor} rounded-2xl shadow-xl p-6`}>
-                    <h4 className={`text-lg font-semibold ${textColor} mb-6 text-center`}>
-                        💳 Payment Mode Usage
-                    </h4>
-                    <ResponsiveContainer width="100%" height={280}>
-                        <BarChart
-                            data={barDataPayment}
-                            margin={{ top: 10, right: 30, left: 0, bottom: 10 }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={chartGridStroke} />
-                            <XAxis
-                                dataKey="mode"
-                                tick={{ fontSize: 12, fill: axisTickColor }}
-                                axisLine={false}
-                                tickLine={false}
-                            />
-                            <YAxis
-                                tick={{ fontSize: 12, fill: axisTickColor }}
-                                axisLine={false}
-                                tickLine={false}
-                                allowDecimals={false}
-                            />
-                            <Tooltip
-                                contentStyle={{ borderRadius: '10px', fontSize: '14px', backgroundColor: tooltipBgColor, color: tooltipTextColor }}
-                                itemStyle={{ color: tooltipTextColor }}
-                            />
-                            <Bar dataKey="count" radius={[10, 10, 0, 0]} barSize={36}>
-                                {barDataPayment.map((_, index) => (
-                                    <Cell key={`bar-${index}`} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Bar>
-                        </BarChart>
-                    </ResponsiveContainer>
-
-                    {/* Optional clean legend below */}
-                    <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm">
-                        {barDataPayment.map((item, index) => (
-                            <div key={item.mode} className={`flex items-center space-x-2 ${textColor}`}>
-                                <span
-                                    className="inline-block w-3 h-3 rounded-full"
-                                    style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                                ></span>
-                                <span>{item.mode}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Pie Chart - Pending by School */}
-                <div className={`${cardBgColor} rounded-2xl shadow-xl p-6`}>
-                    <h4 className={`text-lg font-semibold ${textColor} text-center`}>
-                        🏫 Pending Transactions by School
-                    </h4>
-                    <ResponsiveContainer width="100%" height={320}>
-                        <PieChart>
-                            <Pie
-                                data={pieDataPendingSchools}
+                                data={statusData}
                                 dataKey="value"
                                 nameKey="name"
                                 cx="50%"
                                 cy="50%"
-                                outerRadius={100}
-                                label={false} // No labels at all
+                                outerRadius={90}
+                                innerRadius={60}
+                                label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
                             >
-                                {pieDataPendingSchools.map((_, index) => (
-                                    <Cell
-                                        key={`pending-cell-${index}`}
-                                        fill={COLORS[index % COLORS.length]}
-                                    />
+                                {statusData.map((_, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                 ))}
                             </Pie>
-                            <Tooltip
-                                contentStyle={{ borderRadius: '10px', fontSize: '14px', backgroundColor: tooltipBgColor, color: tooltipTextColor }}
-                                itemStyle={{ color: tooltipTextColor }}
-                            />
                         </PieChart>
                     </ResponsiveContainer>
+                    <div className="text-right text-sm text-gray-500 mt-2">
+                        Total schools: {summary?.totalRegisteredSchools.toLocaleString()}
+                    </div>
+                </div>
 
-                    {/* Beautiful, responsive legend below */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3 text-sm">
-                        {pieDataPendingSchools.map((item, index) => (
-                            <div key={item.name} className={`flex items-center space-x-2 ${textColor}`}>
-                                <span
-                                    className="inline-block w-3 h-3 rounded-full"
-                                    style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                                ></span>
-                                <span className="truncate">{item.name} ({item.value})</span>
-                            </div>
-                        ))}
+                <div className={`rounded-xl p-6 shadow border ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+                    <h3 className="text-lg font-semibold mb-4">Recent Transactions</h3>
+                    <div className="overflow-x-auto">
+                        <table className="table-auto w-full text-left border-collapse">
+                            <thead>
+                                <tr className="text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                                    <th className="px-4 py-2 border-b">Date</th>
+                                    <th className="px-4 py-2 border-b">Transaction ID</th>
+                                    <th className="px-4 py-2 border-b text-right">Amount (INR)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {recentTransactions.map((tx, idx) => (
+                                    <tr
+                                        key={idx}
+                                        className={`text-sm transition duration-200 ${idx % 2 === 0
+                                            ? darkMode ? 'bg-gray-900' : 'bg-white'
+                                            : darkMode ? 'bg-gray-800' : 'bg-gray-50'
+                                            }`}
+                                    >
+                                        <td className="px-4 py-2 border-b">{tx.date}</td>
+                                        <td className="px-4 py-2 border-b text-blue-400 truncate">{tx.id}</td>
+                                        <td className="px-4 py-2 border-b text-right">{tx.amount}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+
+            {/* Line Chart */}
+            <div className={`rounded-xl p-6 shadow border ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+                <h3 className="text-lg font-semibold mb-4">Transaction Report</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                    {loading ? (
+                        <div className="flex items-center justify-center h-full text-gray-500">Loading...</div>
+                    ) : error ? (
+                        <div className="flex items-center justify-center h-full text-red-500">{error}</div>
+                    ) : (
+                        <LineChart data={lineData}>
+                            <XAxis dataKey="month" stroke={darkMode ? '#ddd' : '#333'} />
+                            <YAxis stroke={darkMode ? '#ddd' : '#333'} tickFormatter={(v) => `${v} ₹`} />
+                            <Tooltip
+                                contentStyle={{
+                                    backgroundColor: darkMode ? '#1f2937' : '#fff',
+                                    borderColor: darkMode ? '#374151' : '#ccc',
+                                    color: darkMode ? '#fff' : '#000'
+                                }}
+                                formatter={(value) => `${value} ₹`}
+                            />
+                            <Line type="monotone" dataKey="amount" stroke="#3B82F6" strokeWidth={3} dot />
+                        </LineChart>
+                    )}
+                </ResponsiveContainer>
+            </div>
         </div>
     );
-};
-
-export default TransactionDashboard;
+}
