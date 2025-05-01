@@ -129,26 +129,130 @@ This page enables users to check the status of a transaction using a Custom Orde
 
 ---
 
-##Analytics - Page Overview
 
-This page enables users to check the detailed realtime visual  analytics of the  transaction data.
 
-### Responsive Layout Previews
+# Transaction Analytics Dashboard - Page Overview
 
-| Orientation | Screenshot |
-|-------------|------------|
-| Desktop View (Light) | ![](https://i.ibb.co/RG42zX6g/Screenshot-2025-05-01-053915.png) |
+The **Transaction Dashboard** provides a comprehensive view of transaction data, including summaries, visualizations, and recent transaction details. The layout is fully responsive and supports both light and dark themes for an optimal user experience.
+
 ---
 
-##Payments - Page Overview
+## Key Features
 
-This page enables users to perform payments as per the given documentation 
+1. **Summary Cards**
+   - Displays key metrics such as:
+     - Total Transaction Amount
+     - Number of Transactions
+     - Total Registered Schools
+     - Total Order Amount
+   - Each card includes an icon and dynamically updates based on the fetched data.
 
-### Responsive Layout Previews
+2. **Pie Chart**
+   - Visualizes the distribution of transaction statuses (e.g., Success, Pending, Failed).
+   - Includes percentage labels for each status.
+
+3. **Recent Transactions Table**
+   - Lists the most recent transactions with details such as:
+     - Date
+     - School ID
+     - Transaction Amount
+   - Alternating row colors for better readability.
+   - Fully responsive with horizontal scrolling for smaller screens.
+
+4. **Line Chart**
+   - Displays a year-long transaction report with monthly data.
+   - Includes smooth gradients and tooltips for better data visualization.
+
+5. **Dark Mode Support**
+   - Users can toggle between light and dark themes.
+   - All components dynamically adjust their styles based on the selected theme.
+
+6. **Error and Loading States**
+   - Displays loading indicators while fetching data.
+   - Shows error messages if data retrieval fails.
+
+---
+
+## Flow Summary
+
+1. **Data Fetching**
+   - On page load, the app fetches:
+     - Line chart data
+     - Recent transactions
+     - Transaction summary
+     - Transaction status distribution
+   - All data is fetched concurrently for better performance.
+
+2. **Data Visualization**
+   - The fetched data is displayed in summary cards, charts, and tables.
+
+3. **User Interaction**
+   - Users can toggle between light and dark themes.
+   - The page dynamically updates based on the selected theme.
+
+---
+
+## Responsive Layout Previews
 
 | Orientation | Screenshot |
 |-------------|------------|
-| View (Light) | ![](https://i.ibb.co/6LQDr0p/Screenshot-2025-05-01-054254.png) |
+| Desktop View (Light) | ![](https://i.ibb.co/jkXknRJ3/Screenshot-2025-05-01-171427.png) |
+
+
+---
+
+## Components Overview
+
+### 1. Header
+- Displays the page title: **Transaction Analytics**.
+- Includes a button to navigate back to the main dashboard.
+- Theme toggle button for switching between light and dark modes.
+
+### 2. Summary Cards
+- Four cards showing key metrics with icons and dynamic values.
+
+### 3. Pie Chart
+- Visualizes transaction statuses with a clean and interactive design.
+
+### 4. Recent Transactions Table
+- Displays the most recent transactions in a tabular format.
+- Includes hover effects and alternating row colors.
+
+### 5. Line Chart
+- Provides a year-long transaction report with monthly data.
+
+---
+
+## Key Technologies Used
+
+- **React**: For building the UI components.
+- **Recharts**: For rendering the pie and line charts.
+- **Tailwind CSS**: For responsive and dynamic styling.
+- **React Icons**: For icons in summary cards and buttons.
+- **LocalStorage**: For persisting the dark mode preference.
+- **Axios**: For API calls to fetch transaction data.
+
+---
+
+## How to Use
+
+1. **View Summary Metrics**
+   - Check the summary cards for an overview of transaction data.
+
+2. **Analyze Transaction Status**
+   - Use the pie chart to understand the distribution of transaction statuses.
+
+3. **Review Recent Transactions**
+   - Scroll through the table to see the latest transactions.
+
+4. **Explore Yearly Trends**
+   - Use the line chart to analyze transaction trends over the past year.
+
+5. **Toggle Theme**
+   - Switch between light and dark themes using the toggle button in the header.
+
+---
+
 
 
 
