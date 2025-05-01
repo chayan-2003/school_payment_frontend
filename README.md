@@ -1,3 +1,139 @@
+```markdown
+# Setup and Installation Instructions
+
+Follow these steps to set up and run the **Payment Frontend** project locally.
+
+---
+
+## Prerequisites
+
+Ensure you have the following installed on your system:
+- **Node.js** (v16 or later)
+- **npm** or **yarn** (npm comes with Node.js)
+- A modern web browser (e.g., Chrome, Firefox)
+
+---
+
+## Installation Steps
+
+### 1. Clone the Repository
+Clone the project repository to your local machine:
+```bash
+git clone https://github.com/your-username/payment-frontend.git
+```
+
+### 2. Navigate to the Project Directory
+Move into the project folder:
+```bash
+cd payment-frontend
+```
+
+### 3. Install Dependencies
+Install the required dependencies using npm or yarn:
+```bash
+npm install
+# or
+yarn install
+```
+
+### 4. Set Up Environment Variables
+Create a `.env` file in the root directory and configure the required environment variables. Use the following format:
+```properties
+VITE_API_BASE_URL=https://your-backend-api-url.com
+```
+
+> **Note**: Replace `https://your-backend-api-url.com` with the actual backend API URL.
+
+---
+
+## Running the Application
+
+### 1. Start the Development Server
+Run the following command to start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+### 2. Open in Browser
+Once the server starts, open your browser and navigate to:
+```
+http://localhost:5173
+```
+
+---
+
+## Build for Production
+
+To build the application for production, run:
+```bash
+npm run build
+# or
+yarn build
+```
+
+The production-ready files will be generated in the `dist` folder.
+
+---
+
+## Linting and Formatting
+
+### Run Linter
+To check for code quality issues, run:
+```bash
+npm run lint
+# or
+yarn lint
+```
+
+### Format Code
+To format the codebase, run:
+```bash
+npm run format
+# or
+yarn format
+```
+
+---
+
+## Available Routes
+
+| Route                     | Description                              |
+|---------------------------|------------------------------------------|
+| `/`                       | Home Page                               |
+| `/login`                  | Login Page                              |
+| `/register`               | Registration Page                       |
+| `/dashboard`              | Main Dashboard                          |
+| `/transactions`           | Transaction List Page                   |
+| `/transactions-by-school` | Transactions Filtered by School         |
+| `/transaction-status`     | Transaction Status Lookup Page          |
+| `/transaction-dashboard`  | Transaction Analytics Dashboard         |
+| `/payment`                | Payment Page                            |
+
+---
+
+## Troubleshooting
+
+### Common Issues
+1. **Missing `.env` File**:
+   - Ensure the `.env` file exists in the root directory and contains the correct `VITE_API_BASE_URL`.
+
+2. **Port Already in Use**:
+   - If the default port `5173` is in use, specify a different port when starting the development server:
+     ```bash
+     npm run dev -- --port=3000
+     ```
+
+3. **API Errors**:
+   - Verify that the backend API is running and accessible at the URL specified in the `.env` file.
+
+---
+
+Let me know if you need further assistance! 😊
+```
+
+
 ## Transaction Table Page Overview
 
 ### Responsive Layout Previews
