@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TransactionList from './pages/TransactionPage';
-import Login from  './components/Login';
+import Login from  './pages/Login';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import TransactionsBySchoolPage from './pages/TransactionBySchool';
 import TransactionStatusPage from './pages/TransactionStatus';
 import TransactionDashboard from './pages/TransactionDashboard';
 import PaymentPage from './pages/Payment';
-import RegisterPage from './components/Register';
+import RegisterPage from './pages/Register';
 const App: React.FC = () => {
  
 

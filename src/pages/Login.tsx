@@ -34,33 +34,40 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center  bg-gray-50 md:min-h-screen">
-      <div className="flex flex-col md:flex-row w-full max-w-4xl rounded-2xl shadow-2xl transform transition-all hover:scale-105 hover:shadow-3xl
-      ">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-bl from-blue-800 via-blue-100 to-blue-600">
+      {/* Wrapper Div to separate Left and Right Panels */}
+      <div className="flex flex-col md:flex-row w-full max-w-4xl rounded-4xl shadow-2xl transform transition-all hover:scale-105 hover:shadow-3xl bg-white">
+
         {/* Left Panel */}
-        <div className="w-full md:w-1/2 bg-gradient-to-r from-[#3B2EF5] to-[#6A58F6] text-white flex flex-col justify-center items-center px-6     py-16   sm:py-36 relative text-center">
-          <div className="max-w-md">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Welcome to Edviron 👋
-            </h2>
-            <p className="text-base md:text-lg opacity-90 leading-relaxed mb-6">
-              Edviron Fintech is a technology-driven financial services company focusing on building innovative digital platforms
-            </p>
+        <div className="relative w-full md:w-2/3 flex items-center justify-center rounded-sm overflow-hidden">
+          {/* Main Circular Background */}
+          <div className="w-[600px] h-[550px] bg-gradient-to-tl from-blue-800 via-blue-500 to-blue-800 rounded-br-full flex flex-col items-center justify-center text-center text-white px-6 z-10 -translate-y-8">
+            <div className="-translate-y-14">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 ">Welcome to Edviron 👋</h2>
+              <p className="text-base md:text-lg opacity-90 leading-relaxed mb-6">
+                Edviron Fintech is a technology-driven financial <br />
+                services company focusing on building innovative <br />
+                digital platforms
+              </p>
+            </div>
           </div>
 
+          {/* Bottom-left Decorative Circle (half inside box) */}
+          <div className="absolute bottom-0 -left-40 w-60 h-60 bg-gradient-to-bl from-blue-800 to-blue-400 rounded-full z-20 shadow-2xl translate-x-1/3 translate-y-1/3" />
+
+          {/* Bottom-right Decorative Circle */}
+          <div className="absolute bottom-8 right-4 w-60 h-60 bg-gradient-to-tl from-blue-800 via-blue-700 to-blue-400 rounded-full z-20 shadow-2xl" />
         </div>
 
-
         {/* Right Panel */}
-        <div className="w-full md:w-1/2 flex items-center justify-center bg-white p-6 md:p-12">
-          <div className="w-full max-w-sm space-y-4">
-            <h2 className="text-2xl font-semibold mb-2 text-center ">Welcome Back!</h2>
-            <p className="text-sm mb-6 text-gray-500 text-center md:text-left">
+        <div className="relative w-full md:w-1/2 flex items-center justify-center rounded-4xl overflow-hidden bg-white p-6 md:p-12">
+          <div className="relative w-full max-w-sm space-y-4 z-10">
+            <h2 className="text-2xl text-blue-900 md:text-3xl font-semibold text-center mb-4 pt-10">Welcome Back!</h2>
+            <p className="text-sm text-gray-500 text-center md:text-left mb-10">
               Don’t have an account?{' '}
               <a href="/register" className="text-indigo-600 font-medium hover:underline">
                 Create a new account now
               </a>
-
             </p>
 
             <form onSubmit={handleLogin} className="space-y-4">
@@ -97,12 +104,12 @@ const LoginPage = () => {
                       r="10"
                       stroke="currentColor"
                       strokeWidth="4"
-                    ></circle>
+                    />
                     <path
                       className="opacity-75"
                       fill="currentColor"
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                    ></path>
+                    />
                   </svg>
                 ) : (
                   'Login Now'
@@ -117,6 +124,9 @@ const LoginPage = () => {
               </a>
             </div>
           </div>
+
+          {/* Decorative Circle - contained inside the panel */}
+          <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-br from-blue-800 via-blue-400 to-blue-600 rounded-full z-0 translate-x-1/2 translate-y-1/2" />
         </div>
       </div>
     </div>
