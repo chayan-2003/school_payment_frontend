@@ -236,6 +236,89 @@ The **Transaction Dashboard** provides a comprehensive view of transaction data,
 ---
 
 
+## Payment Page Overview
+
+The **Payment Page** allows users to securely initiate payments by providing essential details such as the School ID, Amount, and Callback URL. The page is designed with a clean and responsive layout, supporting both light and dark modes for an optimal user experience.
+
+---
+
+### Responsive Layout Previews
+
+The Payment Page is fully responsive and adapts seamlessly to different screen sizes. Below are screenshots showcasing the layout:
+
+| Orientation | Screenshot |
+|-------------|------------|
+| Desktop View  | ![](https://i.ibb.co/DgSt90Jq/Screenshot-2025-05-01-235948.png) |
+---
+
+### Component Structure
+
+The page consists of the following key components:
+
+#### 1. **Dark Mode Toggle**
+- A toggle button in the top-right corner allows users to switch between light and dark modes.
+- The theme preference is saved in `localStorage` and applied automatically on subsequent visits.
+
+#### 2. **Payment Form**
+- The form includes the following fields:
+  - **School ID**: Input field for entering the school identifier.
+  - **Amount**: Input field for specifying the payment amount.
+  - **Callback URL**: Input field for providing the callback URL to handle payment responses.
+- Each field is styled with floating labels for a modern and user-friendly design.
+- The form validates user input and ensures all fields are filled before submission.
+
+#### 3. **Submit Button**
+- A visually appealing button labeled **"Pay Now"** initiates the payment process.
+- The button includes a loading spinner when the payment is being processed.
+
+#### 4. **Background and Overlay**
+- A visually rich background image with a gradient overlay enhances the page's aesthetics.
+- The overlay ensures readability of the content while maintaining a professional look.
+
+---
+
+### Flow Summary
+
+1. **User Input**:
+   - The user fills in the required fields: School ID, Amount, and Callback URL.
+
+2. **Payment Submission**:
+   - Upon clicking the **"Pay Now"** button, the form data is sent to the backend API (`/create-payment`).
+   - The API generates a payment request and returns a `collect_request_url`.
+
+3. **Redirection**:
+   - The user is redirected to the `collect_request_url` to complete the payment process.
+
+4. **Error Handling**:
+   - If the payment request fails, an error message is displayed using the `toast` notification system.
+
+---
+
+### Key Features
+
+- **Secure Payment**:
+  - The form ensures secure data submission with proper validation and error handling.
+  
+- **Dark Mode Support**:
+  - The page dynamically adjusts its styles based on the selected theme (light or dark mode).
+
+- **Responsive Design**:
+  - The layout adapts seamlessly to different screen sizes, ensuring usability on both desktop and mobile devices.
+
+- **Real-Time Feedback**:
+  - Users receive instant feedback on the payment process through loading indicators and toast notifications.
+
+---
+
+### Technologies Used
+
+- **React**: For building the UI components.
+- **Axios**: For making API requests to the backend.
+- **Sonner (Toast Notifications)**: For displaying success and error messages.
+- **Tailwind CSS**: For responsive and dynamic styling.
+- **Framer Motion**: For smooth animations and transitions.
+
+---
 
 
 
