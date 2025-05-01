@@ -425,7 +425,8 @@ The page consists of the following key components:
 
 4. **Dummy Data in Analytics**:  
    - The "Recent Transactions" table in the analytics dashboard may display data ahead of the current time due to the use of dummy data.  
-   - However, the line graph showing transactions for the last year is designed to display data only up to the present date.  
+   - However, the line graph showing transactions for the last year is designed to display data only up to the present date.
+   -All of the analytics data are fetched from aggregated transaction data which is evident in the analytics service .
 
 5. **Frontend Loading Time**:  
    - If the loading time is slightly higher, it could be due to server-side render inactivity or delays in fetching data from the backend.  
