@@ -98,7 +98,7 @@ This page enables users to check the status of a transaction using a Custom Orde
 | Tablet View (Light) | ![](https://i.ibb.co/d01Dx69h/Screenshot-2025-04-30-193439.png) |
 | Mobile View (Dark) | ![](https://i.ibb.co/MDp1PL7R/Screenshot-2025-04-30-193851.png) |
 
-### Component Structurehttps://i.ibb.co/MDp1PL7R/Screenshot-2025-04-30-193851.png
+
 
 
 1. **Order ID Input and Submit Button**  
@@ -128,6 +128,28 @@ This page enables users to check the status of a transaction using a Custom Orde
 - Theme Toggle: Supports both dark and light themes.
 
 ---
+
+##Analytics - Page Overview
+
+This page enables users to check the detailed realtime visual  analytics of the  transaction data.
+
+### Responsive Layout Previews
+
+| Orientation | Screenshot |
+|-------------|------------|
+| Desktop View (Light) | ![](https://i.ibb.co/RG42zX6g/Screenshot-2025-05-01-053915.png) |
+---
+
+##Payments - Page Overview
+
+This page enables users to perform payments as per the given documentation 
+
+### Responsive Layout Previews
+
+| Orientation | Screenshot |
+|-------------|------------|
+| View (Light) | ![](https://i.ibb.co/6LQDr0p/Screenshot-2025-05-01-054254.png) |
+
 
 
 
