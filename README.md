@@ -1,16 +1,14 @@
 # Frontend Documentation Index
+### **Frontend Documentation Index**
 
 1. **Setup**  
-   - Steps to install dependencies and run the frontend application.  
-   - Environment variable configuration (if applicable).  
-
 2. **Explanation of Each Page**  
-   - **Responsive Layout Previews**:  
-     - Screenshots or descriptions of how each page adapts to different screen sizes (mobile, tablet, desktop).  
-   - **Component Structure**:  
-     - Overview of the components used on each page and their hierarchy.  
-   - **Flow Summary**:  
-     - Explanation of how data flows between components and services for each page.  
+   - Responsive Layout Previews  
+   - Component Structure  
+   - Flow Summary  
+
+3. **Key Considerations**  
+
 
 
 # Setup and Installation Instructions
@@ -410,6 +408,29 @@ The page consists of the following key components:
    - If the payment request fails, an error message is displayed using the `toast` notification system.
 
 ---
+
+### **Key Considerations**
+
+1. **Multiple Transactions for a Single Order**:  
+   - Transactions are an aggregation of `Order` and `OrderStatus`.  
+   - Due to this relationship, there may be multiple `OrderStatus` entries for the same `Order`, resulting in multiple transactions associated with a single `customOrderId`.  
+
+2. **Custom Order ID Format**:  
+   - The `customOrderId` is designed for ease of understanding and follows a sequential format, such as `ORD-1001`, `ORD-1002`, etc.  
+   - This field provides a user-friendly way to identify orders.  
+
+3. **Service Layer Functions**:  
+   - The service layer includes critical API logic to handle core functionalities.  
+   - It also contains functions to support analytics, ensuring the system can provide insights into transaction data.  
+
+4. **Dummy Data in Analytics**:  
+   - The "Recent Transactions" table in the analytics dashboard may display data ahead of the current time due to the use of dummy data.  
+   - However, the line graph showing transactions for the last year is designed to display data only up to the present date.  
+
+5. **Frontend Loading Time**:  
+   - If the loading time is slightly higher, it could be due to server-side render inactivity or delays in fetching data from the backend.  
+   - Optimizations can be applied to improve responsiveness if necessary.  
+
 
 
 
