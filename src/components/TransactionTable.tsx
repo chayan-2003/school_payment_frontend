@@ -170,7 +170,10 @@ const TransactionsTable = ({ darkMode }: { darkMode: boolean }) => {
         </div>
 
         {/* Table */}
-        <div className="rounded-lg shadow-md  overflow-auto transition-colors duration-300 ease-in-out border border-gray-200 dark:border-gray-700  md:overflow-hidden">
+        <div
+          className={`rounded-lg shadow-md overflow-auto transition-colors duration-300 ease-in-out border md:overflow-hidden ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            }`}
+        >
           <table className={`min-w-full ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
             <thead className={darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-600'}>
               <tr>
@@ -194,7 +197,7 @@ const TransactionsTable = ({ darkMode }: { darkMode: boolean }) => {
                 </th>
                 <th className="px-5 py-4 text-left text-md font-medium tracking-wider">Payment Method</th>
                 <th className="px-5 py-4 text-left text-md font-medium tracking-wider">Status</th>
-                <th className="px-5 py-4 text-left text-md font-medium tracking-wider">CustomOrderID</th>
+                <th className="px-5 py-4 text-left text-md font-medium tracking-wider">Order ID</th>
               </tr>
             </thead>
             <tbody className={darkMode ? 'bg-gray-900 tbody-dark' : 'bg-white'}>
@@ -215,7 +218,8 @@ const TransactionsTable = ({ darkMode }: { darkMode: boolean }) => {
                 transactions.map((txn, idx) => (
                   <tr
                     key={`${txn.collect_id}-${txn.payment_time}-${idx}`}
-                    className="transition-transform duration-150 ease-in-out hover:shadow-md transform hover:scale-101 hover:bg-gray-100 dark:hover:bg-gray-800 "
+                    className={`transition-transform duration-150 ease-in-out hover:shadow-md transform hover:scale-101 ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+                      }`}
                     style={{ transform: 'translateZ(0)' }}
                   >
                     <td className="px-3 py-4 sm:px-5 sm:py-6 whitespace-nowrap text-sm">{formatSerialNumber(currentPage, pageSize, idx)}</td>

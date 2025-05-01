@@ -6,7 +6,8 @@ import {
     AreaChart
 } from 'recharts';
 import {
-    FaWallet, FaExchangeAlt, FaSchool, FaMoneyBillAlt, FaMoon, FaSun
+    FaWallet, FaExchangeAlt, FaSchool, FaMoneyBillAlt, FaMoon, FaSun,
+    FaArrowLeft
 } from 'react-icons/fa';
 import {
     fetchLineData, fetchRecentTransactions,
@@ -81,8 +82,10 @@ export default function Dashboard() {
                     <div className="flex items-center gap-4">
                         <button
                             onClick={() => navigate('/dashboard')}
-                            className="px-4 py-2 bg-blue-500 text-white rounded-xl shadow hover:bg-blue-600 transition text-sm"
+                            className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${darkMode ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-indigo-500 text-white hover:bg-indigo-600'
+                                }`}
                         >
+                            <FaArrowLeft className="mr-2 animate-bounce" />
                             Dashboard
                         </button>
                         <button
@@ -98,7 +101,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Summary Cards */}
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 ">
                     {[
                         {
                             label: 'Transaction Amount',
@@ -127,7 +130,7 @@ export default function Dashboard() {
                                 }`}
                         >
                             <div className="text-2xl text-blue-500 mb-1">{icon}</div>
-                            <div className="text-sm text-gray-500 dark:text-gray-300">{label}</div>
+                            <div className={`${darkMode ? 'text-gray-300' : 'text-gray-500'} text-sm`}>{label}</div>
                             <div className="text-lg font-semibold mt-1">{value}</div>
                         </div>
                     ))}
@@ -169,7 +172,9 @@ export default function Dashboard() {
                         <div className="overflow-x-auto">
                             <table className="table-auto w-full text-left border-collapse">
                                 <thead>
-                                    <tr className="text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                                    <tr
+                                        className={`text-sm font-medium ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-700'}`}
+                                    >
                                         <th className="px-4 py-2 border-b">Date</th>
                                         <th className="px-4 py-2 border-b">School ID</th>
 
