@@ -43,7 +43,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex items-center justify-center md:min-h-screen bg-gray-50">
       <div className="flex flex-col md:flex-row w-full max-w-6xl rounded-2xl shadow-2xl transform transition-all hover:scale-105 hover:shadow-3xl">
         {/* Left Panel with Gradient */}
         <div className="w-full md:w-1/2 bg-gradient-to-r from-[#3B2EF5] to-[#6A58F6] text-white flex flex-col justify-center items-center

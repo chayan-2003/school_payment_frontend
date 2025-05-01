@@ -105,7 +105,7 @@ const TransactionsBySchoolPage = () => {
 
   return (
     <motion.div
-      className={`min-h-screen py-10 ${bgColorClass} transition-colors duration-300 `}
+      className={`min-h-screen  ${bgColorClass} transition-colors duration-300 `}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
