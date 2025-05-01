@@ -36,7 +36,14 @@ const RegisterPage = () => {
       console.log(response.data);
     } catch (err: unknown) {
       console.error('Registration failed:', err);
-      toast.error('Registration failed. Please try again.');
+      if (axios.isAxiosError(err) && err.response?.data?.message) {
+        const errorMessage = Array.isArray(err.response.data.message)
+          ? err.response.data.message.join(', ') 
+          : err.response.data.message;
+        toast.error(errorMessage); 
+      } else {
+        toast.error('Registration failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
