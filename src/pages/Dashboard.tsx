@@ -83,20 +83,66 @@ const Dashboard = () => {
         }`}
       style={{ fontFamily: primaryFont }}
     >
-      {/* Theme Toggle */}
       <div className="flex items-center justify-end absolute top-6 right-6">
+        {/* Home Button */}
         <button
           onClick={() => navigate('/')}
-          className={`cursor-pointer mr-4 px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center ${darkMode
-            ? 'bg-gray-700 text-white hover:bg-gray-600'
-            : 'bg-white text-indigo-600 hover:bg-indigo-100'
+          className={`cursor-pointer mr-4 px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center ${darkMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-white text-indigo-600 hover:bg-indigo-100'
             }`}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-5 h-5 mr-2"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 0 1 0 12h-3" />
           </svg>
           Home
         </button>
+
+        {/* Logout Button */}
+        <motion.button
+          onClick={async () => {
+            try {
+              const response = await axios.get(
+                `${import.meta.env.VITE_API_BASE_URL}/auth/logout`,
+                { withCredentials: true }
+              );
+              console.log('Logout successful:', response.data);
+             
+              navigate('/login'); 
+            } catch (error) {
+              console.error('Logout failed:', error);
+            }
+          }}
+          className="cursor-pointer p-2 rounded-full shadow-md transition-colors duration-300 ease-in-out mr-4"
+          style={{
+            backgroundColor: darkMode ? '#1f2937' : '#ffffff',
+            color: darkMode ? '#f87171' : '#ef4444', // Red color for logout
+          }}
+          aria-label="Logout"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-5 h-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 9V5.25a2.25 2.25 0 0 0-2.25-2.25h-6a2.25 2.25 0 0 0-2.25 2.25v13.5a2.25 2.25 0 0 0 2.25 2.25h6a2.25 2.25 0 0 0 2.25-2.25V15M9 12h12m0 0l-3-3m3 3l-3 3"
+            />
+          </svg>
+        </motion.button>
+        {/* Theme Toggle Button */}
         <motion.button
           onClick={toggleTheme}
           className="cursor-pointer p-2 rounded-full shadow-md transition-colors duration-300 ease-in-out"
@@ -212,8 +258,8 @@ const Dashboard = () => {
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl 
-       md:max-w-3xl   mx-auto mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full 
+       md:max-w-lg lg:max-w-3xl   mx-auto mt-8 ">
         {/* Bottom Row: Two Cards */}
         <motion.div
           onClick={() => navigate('/transaction-status')}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import axios from 'axios';
 import {
   FaSearch,
@@ -10,7 +10,7 @@ import {
   FaClock,
   FaArrowLeft,
 } from 'react-icons/fa';
-
+import {toast} from 'sonner';
 const TransactionStatusPage = () => {
   const [customOrderId, setCustomOrderId] = useState('');
   const [darkMode, setDarkMode] = useState(false);
@@ -28,23 +28,18 @@ const TransactionStatusPage = () => {
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (error) {
-      const timeout = setTimeout(() => setError(''), 4000);
-      return () => clearTimeout(timeout);
-    }
-  }, [error]);
+
+
 
   const fetchTransactionStatus = async () => {
     if (!customOrderId) {
-      setError('Please enter your Order ID.');
+      toast.error('Please enter a Custom Order ID to track.');
       return;
     }
 
     setLoading(true);
-    setError('');
+   
     setTransactions([]);
     try {
       const response = await axios.get(
@@ -53,11 +48,15 @@ const TransactionStatusPage = () => {
       );
       setTransactions(response.data);
       if (response.data.length === 0) {
-        setError('No transaction found for this Order ID.');
+        toast.error('No transactions found for the provided Custom Order ID.');
       }
     } catch (err) {
       console.error('Error fetching transaction status:', err);
-      setError('Failed to retrieve transaction details. Please try again.');
+      if (axios.isAxiosError(err) && err.response?.data?.message) {
+        toast.error(err.response.data.message);
+      } else {
+        toast.error('Failed to fetch transaction status. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -137,17 +136,7 @@ const TransactionStatusPage = () => {
               {loading ? <FaSpinner className="animate-spin mr-2 inline-block" /> : 'Track'}
             </button>
           </div>
-          {error && (
-            <div
-              className={`fixed bottom-4 right-4 p-4 rounded-md shadow-lg z-50 animate-slide-in ${
-                darkMode ? 'text-yellow-400 border-yellow-400' : 'text-green-600 border-green-600'
-              } border-l-4 bg-white dark:bg-zinc-800`}
-              role="alert"
-            >
-              <strong className="font-semibold">Error!</strong>
-              <span className="ml-1">{error}</span>
-            </div>
-          )}
+          
         </section>
 
         {/* Transactions Table */}

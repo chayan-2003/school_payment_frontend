@@ -34,11 +34,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex items-center justify-center  bg-gray-50 md:min-h-screen">
       <div className="flex flex-col md:flex-row w-full max-w-4xl rounded-2xl shadow-2xl transform transition-all hover:scale-105 hover:shadow-3xl
       ">
         {/* Left Panel */}
-        <div className="w-full md:w-1/2 bg-gradient-to-r from-[#3B2EF5] to-[#6A58F6] text-white flex flex-col justify-center items-center px-6 py-36 relative text-center">
+        <div className="w-full md:w-1/2 bg-gradient-to-r from-[#3B2EF5] to-[#6A58F6] text-white flex flex-col justify-center items-center px-6     py-16   sm:py-36 relative text-center">
           <div className="max-w-md">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Welcome to Edviron 👋

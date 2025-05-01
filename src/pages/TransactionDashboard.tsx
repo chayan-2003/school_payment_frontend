@@ -75,11 +75,13 @@ export default function Dashboard() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
                 {/* Header */}
                 <div className="flex flex-wrap justify-between items-center mb-6">
-                    <h1 className="text-3xl font-semibold">
-                        <span className={`${darkMode ? 'text-white' : 'text-black'}`}>Transaction</span>{' '}
+                    <h1 className="text-3xl font-semibold mx-auto sm:mx-0 
+                    ">
+                        <span className={` ${darkMode ? 'text-white' : 'text-black'}`}>Transaction</span>{' '}
                         <span className={`${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>Analytics</span>
                     </h1>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 mx-auto sm:mx-0
+                    mt-4 sm:mt-0">
                         <button
                             onClick={() => navigate('/dashboard')}
                             className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${darkMode ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-indigo-500 text-white hover:bg-indigo-600'

@@ -218,7 +218,7 @@ const TransactionsTable = ({ darkMode }: { darkMode: boolean }) => {
                 transactions.map((txn, idx) => (
                   <tr
                     key={`${txn.collect_id}-${txn.payment_time}-${idx}`}
-                    className={`transition-transform duration-150 ease-in-out hover:shadow-md transform hover:scale-101 ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+                    className={`transition-transform duration-150 ease-in-out hover:shadow-md transform hover:scale-101  ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
                       }`}
                     style={{ transform: 'translateZ(0)' }}
                   >
