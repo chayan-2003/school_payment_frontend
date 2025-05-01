@@ -7,8 +7,8 @@ const PaymentPage = () => {
     const [amount, setAmount] = useState('');
     const [callbackUrl, setCallbackUrl] = useState('');
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [successUrl, setSuccessUrl] = useState('');
+
+
     const [darkMode, setDarkMode] = useState(() => {
         return localStorage.getItem('darkMode') === 'true';
     });
@@ -20,9 +20,7 @@ const PaymentPage = () => {
     const handlePayment = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        setError('');
-        setSuccessUrl('');
-
+      
         try {
             const response = await axios.post(
                 `${import.meta.env.VITE_API_BASE_URL}/create-payment`,
@@ -30,7 +28,7 @@ const PaymentPage = () => {
                 { withCredentials: true, headers: { 'Content-Type': 'application/json' } }
             );
             const { collect_request_url } = response.data;
-            setSuccessUrl(collect_request_url);
+            toast.success('Payment request created successfully! Redirecting...');
             window.location.href = collect_request_url;
         } catch (err: unknown) {
             console.error('Error creating payment:', err);
@@ -103,7 +101,7 @@ const PaymentPage = () => {
                                 value={value}
                                 onChange={(e) => setter(e.target.value)}
                                 required
-                                placeholder=" "
+                                placeholder=""
                                 className={`w-full px-4 pt-6 pb-2 text-sm rounded-md border peer transition-colors ${
                                     darkMode
                                         ? 'bg-white/10 border-white/30 text-white placeholder-transparent focus:ring-indigo-500'
@@ -144,8 +142,8 @@ const PaymentPage = () => {
                     </button>
                 </form>
 
-                {error && <p className="mt-4 text-red-500 text-center text-sm">{error}</p>}
-                {successUrl && toast.success('Payment initiated successfully! Redirecting...')}
+              
+                
             </div>
         </div>
     );

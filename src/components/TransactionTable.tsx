@@ -194,7 +194,7 @@ const TransactionsTable = ({ darkMode }: { darkMode: boolean }) => {
                 </th>
                 <th className="px-5 py-4 text-left text-md font-medium tracking-wider">Payment Method</th>
                 <th className="px-5 py-4 text-left text-md font-medium tracking-wider">Status</th>
-                <th className="px-5 py-4 text-left text-md font-medium tracking-wider">Order ID</th>
+                <th className="px-5 py-4 text-left text-md font-medium tracking-wider">CustomOrderID</th>
               </tr>
             </thead>
             <tbody className={darkMode ? 'bg-gray-900 tbody-dark' : 'bg-white'}>

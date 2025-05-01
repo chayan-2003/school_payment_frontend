@@ -7,11 +7,11 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
@@ -29,19 +29,19 @@ const LoginPage = () => {
       }
       console.error('Login failed:', err);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen font-sans">
+    <div className="flex flex-col md:flex-row min-h-screen font-sans">
       {/* Left Panel */}
-      <div className="w-1/2 bg-[#3B2EF5] text-white flex flex-col justify-center items-center p-10 relative">
-        <div className="max-w-md">
-          <div className="text-4xl font-bold mb-4">
+      <div className="w-full md:w-1/2 bg-[#3B2EF5] text-white flex flex-col justify-center items-center p-8 md:p-10 relative">
+        <div className="max-w-md text-center md:text-left">
+          <div className="text-3xl md:text-4xl font-bold mb-4">
             Hello <span className="text-white">Welcome to Edviron</span>! 👋
           </div>
-          <p className="text-lg opacity-90 leading-relaxed">
+          <p className="text-base md:text-lg opacity-90 leading-relaxed">
             Edviron Fintech is a technology-driven financial services company that focuses on building innovative digital platforms to streamline transactions, school fee management, and financial operations within the education sector.
           </p>
         </div>
@@ -49,10 +49,10 @@ const LoginPage = () => {
       </div>
 
       {/* Right Panel */}
-      <div className="w-1/2 flex items-center justify-center bg-white">
+      <div className="w-full md:w-1/2 flex items-center justify-center bg-white p-6">
         <div className="w-full max-w-sm">
-          <h2 className="text-2xl font-semibold mb-2">Welcome Back!</h2>
-          <p className="text-sm mb-6 text-gray-500">
+          <h2 className="text-2xl font-semibold mb-2 text-center md:text-left">Welcome Back!</h2>
+          <p className="text-sm mb-6 text-gray-500 text-center md:text-left">
             Don’t have an account? <a href="/register" className="text-indigo-600 font-medium hover:underline">Create a new account now</a>, it's FREE! Takes less than a minute.
           </p>
 
@@ -73,8 +73,8 @@ const LoginPage = () => {
             />
             <button
               type="submit"
-              className={`w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all flex items-center justify-center`}
-              disabled={loading} // Disable button while loading
+              className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all flex items-center justify-center"
+              disabled={loading}
             >
               {loading ? (
                 <svg

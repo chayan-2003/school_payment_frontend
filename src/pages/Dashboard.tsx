@@ -79,7 +79,7 @@ const Dashboard = () => {
 
   return (
     <div
-      className={`min-h-screen transition-all duration-500 ease-in-out px-6 sm:px-12 lg:px-20 py-32 ${darkMode ? 'bg-gradient-to-t from-gray-600 via-zinc-700 to-zinc-800 text-gray-100' : 'bg-gradient-to-b from-cyan-50 via-indigo-100 to-blue-200 text-gray-900'
+      className={` transition-all duration-500 ease-in-out px-6 sm:px-12 lg:px-20 py-32 ${darkMode ? 'bg-gradient-to-t from-gray-600 via-zinc-700 to-zinc-800 text-gray-100' : 'bg-gradient-to-b from-cyan-50 via-indigo-100 to-blue-200 text-gray-900'
         }`}
       style={{ fontFamily: primaryFont }}
     >
@@ -134,7 +134,7 @@ const Dashboard = () => {
 
       {/* Dashboard Grid */}
       {/* Dashboard Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl  mx-auto">
         {/* Top Row: Three Cards */}
         <motion.div
           onClick={() => navigate('/transaction-dashboard')}
@@ -212,7 +212,8 @@ const Dashboard = () => {
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl mx-auto mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl 
+       md:max-w-3xl   mx-auto mt-8">
         {/* Bottom Row: Two Cards */}
         <motion.div
           onClick={() => navigate('/transaction-status')}
