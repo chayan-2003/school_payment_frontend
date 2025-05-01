@@ -197,6 +197,7 @@ The **Transaction Dashboard** provides a comprehensive view of transaction data,
 | Orientation | Screenshot |
 |-------------|------------|
 | Desktop View (Light) | ![](https://i.ibb.co/jkXknRJ3/Screenshot-2025-05-01-171427.png) |
+| Mobile View (Dark) | ![](https://i.ibb.co/yBsXHXF8/Screenshot-2025-05-01-173955.png) |
 
 
 ---
@@ -234,24 +235,6 @@ The **Transaction Dashboard** provides a comprehensive view of transaction data,
 
 ---
 
-## How to Use
-
-1. **View Summary Metrics**
-   - Check the summary cards for an overview of transaction data.
-
-2. **Analyze Transaction Status**
-   - Use the pie chart to understand the distribution of transaction statuses.
-
-3. **Review Recent Transactions**
-   - Scroll through the table to see the latest transactions.
-
-4. **Explore Yearly Trends**
-   - Use the line chart to analyze transaction trends over the past year.
-
-5. **Toggle Theme**
-   - Switch between light and dark themes using the toggle button in the header.
-
----
 
 
 
