@@ -1,4 +1,4 @@
-```markdown
+
 # Setup and Installation Instructions
 
 Follow these steps to set up and run the **Payment Frontend** project locally.
@@ -39,10 +39,10 @@ yarn install
 ### 4. Set Up Environment Variables
 Create a `.env` file in the root directory and configure the required environment variables. Use the following format:
 ```properties
-VITE_API_BASE_URL=https://your-backend-api-url.com
+VITE_API_BASE_URL=https://school-payment-microservice.onrender.com
 ```
 
-> **Note**: Replace `https://your-backend-api-url.com` with the actual backend API URL.
+
 
 ---
 
@@ -113,25 +113,7 @@ yarn format
 
 ---
 
-## Troubleshooting
 
-### Common Issues
-1. **Missing `.env` File**:
-   - Ensure the `.env` file exists in the root directory and contains the correct `VITE_API_BASE_URL`.
-
-2. **Port Already in Use**:
-   - If the default port `5173` is in use, specify a different port when starting the development server:
-     ```bash
-     npm run dev -- --port=3000
-     ```
-
-3. **API Errors**:
-   - Verify that the backend API is running and accessible at the URL specified in the `.env` file.
-
----
-
-Let me know if you need further assistance! 😊
-```
 
 
 ## Transaction Table Page Overview
