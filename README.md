@@ -1,4 +1,4 @@
-### **Frontend Documentation Index**
+#Frontend Documentation Index
 
 1. **Setup**  
    - Steps to install dependencies and run the frontend application.  
@@ -11,6 +11,8 @@
      - Overview of the components used on each page and their hierarchy.  
    - **Flow Summary**:  
      - Explanation of how data flows between components and services for each page.  
+
+
 # Setup and Installation Instructions
 
 Follow these steps to set up and run the **Payment Frontend** project locally.
