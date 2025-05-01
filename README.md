@@ -129,7 +129,7 @@ This page enables users to check the status of a transaction using a Custom Orde
 
 ---
 
-#![image](https://github.com/user-attachments/assets/43950da8-ecd3-49cd-9eb8-20fa61038582)
+
 
 # Transaction Analytics Dashboard - Page Overview
 
