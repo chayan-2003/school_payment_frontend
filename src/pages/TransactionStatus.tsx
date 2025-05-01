@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState,useEffect} from 'react';
 import axios from 'axios';
 import {
   FaSearch,
@@ -11,10 +11,11 @@ import {
   FaArrowLeft,
 } from 'react-icons/fa';
 import {toast} from 'sonner';
+import { useNavigate } from 'react-router-dom';
 const TransactionStatusPage = () => {
   const [customOrderId, setCustomOrderId] = useState('');
   const [darkMode, setDarkMode] = useState(false);
-
+  const navigate = useNavigate();
   interface Transaction {
     collect_id: string;
     school_id: string;
@@ -67,6 +68,22 @@ const TransactionStatusPage = () => {
     if (status === 'Failed') return <FaTimesCircle className="inline-block mr-2 text-red-500" />;
     return <FaCheckCircle className="inline-block mr-2 text-green-500" />;
   };
+  
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/me`, {
+          withCredentials: true,
+        });
+        console.log('User is authenticated');
+      } catch (err) {
+        console.error('User not authenticated:', err);
+        navigate('/login');
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
 
   return (
     <div className={`${darkMode ? 'bg-zinc-800 text-zinc-200' : 'bg-gray-100 text-zinc-700'} min-h-screen`}>
@@ -198,3 +215,5 @@ const TransactionStatusPage = () => {
 };
 
 export default TransactionStatusPage;
+
+

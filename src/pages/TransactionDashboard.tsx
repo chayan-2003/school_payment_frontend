@@ -14,6 +14,7 @@ import {
     fetchTransactionSummary, fetchTransactionStatusSummary
 } from '../services/analyticService';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const COLORS = ['#3B82F6', '#A78BFA', '#9CA3AF'];
 
@@ -36,6 +37,21 @@ export default function Dashboard() {
         const storedTheme = localStorage.getItem('darkMode');
         if (storedTheme === 'true') setDarkMode(true);
     }, []);
+      useEffect(() => {
+        const checkAuth = async () => {
+          try {
+            await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/me`, {
+              withCredentials: true,
+            });
+            console.log('User is authenticated');
+          } catch (err) {
+            console.error('User not authenticated:', err);
+            navigate('/login');
+          }
+        };
+    
+        checkAuth();
+      }, [navigate]);
 
     useEffect(() => {
         const fetchData = async () => {
