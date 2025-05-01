@@ -197,6 +197,7 @@ The **Transaction Dashboard** provides a comprehensive view of transaction data,
 | Orientation | Screenshot |
 |-------------|------------|
 | Desktop View (Light) | ![](https://i.ibb.co/jkXknRJ3/Screenshot-2025-05-01-171427.png) |
+| Mobile View (Dark) | ![](https://i.ibb.co/yBsXHXF8/Screenshot-2025-05-01-173955.png) |
 
 
 ---
