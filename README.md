@@ -397,24 +397,6 @@ The page consists of the following key components:
 
 ---
 
-### Key Features
-
-- **Secure Payment**:
-  - The form ensures secure data submission with proper validation and error handling.
-  
-- **Dark Mode Support**:
-  - The page dynamically adjusts its styles based on the selected theme (light or dark mode).
-
-- **Responsive Design**:
-  - The layout adapts seamlessly to different screen sizes, ensuring usability on both desktop and mobile devices.
-
-- **Real-Time Feedback**:
-  - Users receive instant feedback on the payment process through loading indicators and toast notifications.
-
----
-
-
----
 
 
 
