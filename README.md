@@ -1,3 +1,133 @@
+# Frontend Documentation Index
+### **Frontend Documentation Index**
+
+1. **Setup**  
+2. **Explanation of Each Page**  
+   - Responsive Layout Previews  
+   - Component Structure  
+   - Flow Summary  
+
+3. **Key Considerations**  
+
+
+
+# Setup and Installation Instructions
+
+Follow these steps to set up and run the **Payment Frontend** project locally.
+
+---
+
+## Prerequisites
+
+Ensure you have the following installed on your system:
+- **Node.js** (v16 or later)
+- **npm** or **yarn** (npm comes with Node.js)
+- A modern web browser (e.g., Chrome, Firefox)
+
+---
+
+## Installation Steps
+
+### 1. Clone the Repository
+Clone the project repository to your local machine:
+```bash
+git clone https://github.com/your-username/payment-frontend.git
+```
+
+### 2. Navigate to the Project Directory
+Move into the project folder:
+```bash
+cd payment-frontend
+```
+
+### 3. Install Dependencies
+Install the required dependencies using npm or yarn:
+```bash
+npm install
+# or
+yarn install
+```
+
+### 4. Set Up Environment Variables
+Create a `.env` file in the root directory and configure the required environment variables. Use the following format:
+```properties
+VITE_API_BASE_URL=https://school-payment-microservice.onrender.com
+```
+
+
+
+---
+
+## Running the Application
+
+### 1. Start the Development Server
+Run the following command to start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+### 2. Open in Browser
+Once the server starts, open your browser and navigate to:
+```
+http://localhost:5173
+```
+
+---
+
+## Build for Production
+
+To build the application for production, run:
+```bash
+npm run build
+# or
+yarn build
+```
+
+The production-ready files will be generated in the `dist` folder.
+
+---
+
+## Linting and Formatting
+
+### Run Linter
+To check for code quality issues, run:
+```bash
+npm run lint
+# or
+yarn lint
+```
+
+### Format Code
+To format the codebase, run:
+```bash
+npm run format
+# or
+yarn format
+```
+
+---
+
+## Available Routes
+
+| Route                     | Description                              |
+|---------------------------|------------------------------------------|
+| `/`                       | Home Page                               |
+| `/login`                  | Login Page                              |
+| `/register`               | Registration Page                       |
+| `/dashboard`              | Main Dashboard                          |
+| `/transactions`           | Transaction List Page                   |
+| `/transactions-by-school` | Transactions Filtered by School         |
+| `/transaction-status`     | Transaction Status Lookup Page          |
+| `/transaction-dashboard`  | Transaction Analytics Dashboard         |
+| `/payment`                | Payment Page                            |
+
+---
+
+
+
+
 ## Transaction Table Page Overview
 
 ### Responsive Layout Previews
@@ -279,24 +409,30 @@ The page consists of the following key components:
 
 ---
 
-### Key Features
+### **Key Considerations**
 
-- **Secure Payment**:
-  - The form ensures secure data submission with proper validation and error handling.
-  
-- **Dark Mode Support**:
-  - The page dynamically adjusts its styles based on the selected theme (light or dark mode).
+1. **Multiple Transactions for a Single Order**:  
+   - Transactions are an aggregation of `Order` and `OrderStatus`.  
+   - Due to this relationship, there may be multiple `OrderStatus` entries for the same `Order`, resulting in multiple transactions associated with a single `customOrderId`.  
 
-- **Responsive Design**:
-  - The layout adapts seamlessly to different screen sizes, ensuring usability on both desktop and mobile devices.
+2. **Custom Order ID Format**:  
+   - The `customOrderId` is designed for ease of understanding and follows a sequential format, such as `ORD-1001`, `ORD-1002`, etc.  
+   - This field provides a user-friendly way to identify orders.  
 
-- **Real-Time Feedback**:
-  - Users receive instant feedback on the payment process through loading indicators and toast notifications.
+3. **Service Layer Functions**:  
+   - The service layer includes critical API logic to handle core functionalities.  
+   - It also contains functions to support analytics, ensuring the system can provide insights into transaction data.  
 
----
+4. **Dummy Data in Analytics**:  
+   - The "Recent Transactions" table in the analytics dashboard may display data ahead of the current time due to the use of dummy data.  
+   - However, the line graph showing transactions for the last year is designed to display data only up to the present date.
+   -All of the analytics data are fetched from aggregated transaction data which is evident in the analytics service .
+
+5. **Frontend Loading Time**:  
+   - If the loading time is slightly higher, it could be due to server-side render inactivity or delays in fetching data from the backend.  
+   - Optimizations can be applied to improve responsiveness if necessary.  
 
 
----
 
 
 
