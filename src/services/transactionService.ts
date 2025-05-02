@@ -13,7 +13,8 @@ export const fetchTransactions = async ({
   page = 1,       // Default page number
   limit = 10,     // Default items per page
   startDate,      // Start date filter
-  endDate,        // End date filter
+  endDate,  
+  collectId      // End date filter
 }: {
   status?: string | string[];
   school_id?: string | string[];
@@ -22,7 +23,8 @@ export const fetchTransactions = async ({
   page?: number;  // Accept page as a parameter
   limit?: number; // Accept limit as a parameter
   startDate?: string; // Start date as a string (e.g., '2025-04-01')
-  endDate?: string;   // End date as a string (e.g., '2025-04-30')
+  endDate?: string;
+  collectId?: string;   // End date as a string (e.g., '2025-04-30')
 }) => {
   const params = new URLSearchParams();
 
@@ -58,6 +60,10 @@ export const fetchTransactions = async ({
   }
   if (endDate) {
     params.append('endDate', endDate);
+  }
+  if(collectId)
+  {
+    params.append('collectId', collectId);
   }
 
   try {

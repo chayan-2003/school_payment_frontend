@@ -5,6 +5,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { fetchTransactions } from '../services/transactionService';
 
+import { toast } from 'sonner';
+import { Search } from 'lucide-react';
 const statusOptions = [
   { value: 'pending', label: 'Pending' },
   { value: 'Failed', label: 'Failed' },
@@ -30,10 +32,11 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
   const [selectedSchools, setSelectedSchools] = useState<MultiValue<Option>>(
     initSchools.map((id) => ({ value: id, label: id }))
   );
-  
+
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [collectId, setCollectId] = useState(''); // Fix: define collectId
 
   const formatDate = (date: Date | null): string | null => {
     if (!date) return null;
@@ -47,16 +50,27 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
     (async () => {
       try {
         const res = await fetchTransactions({ page: 1, limit: 1000 });
-        const ids = Array.from(new Set(res.data.map((t: { school_id: string | number }) => t.school_id)));
-        setSchoolOptions(ids.map((id) => ({ value: id as string, label: id as string })));
+        const ids = Array.from(
+          new Set(res.data.map((t: { school_id: string | number }) => t.school_id))
+        );
+        setSchoolOptions(ids.map((id) => ({ value: String(id), label: String(id) })));
       } catch (err) {
         console.error(err);
       }
     })();
   }, []);
 
+  const isValidObjectId = (id: string): boolean => {
+    // A valid ObjectId is a 24-character hexadecimal string
+    const objectIdRegex = /^[a-fA-F0-9]{24}$/;
+    return objectIdRegex.test(id);
+  };
   const applyFilters = () => {
     const params = new URLSearchParams();
+    if (collectId && !isValidObjectId(collectId)) {
+      toast.error('Invalid Collect ID format. Please enter a valid Collect ID.');
+      return;
+    }
     selectedStatuses.forEach((o) => params.append('status', o.value));
     selectedSchools.forEach((o) => params.append('school_id', o.value));
     const formattedStartDate = formatDate(startDate);
@@ -64,6 +78,7 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
     if (formattedStartDate) params.set('startDate', formattedStartDate);
     if (formattedEndDate) params.set('endDate', formattedEndDate);
     if (searchTerm) params.set('search', searchTerm);
+    if (collectId) params.set('collectId', collectId);
     params.set('page', '1');
     navigate({ search: params.toString() });
   };
@@ -74,27 +89,39 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
     setStartDate(null);
     setEndDate(null);
     setSearchTerm('');
+    setCollectId('');
     const params = new URLSearchParams();
     navigate({ search: params.toString() });
   };
 
   return (
-    <div
-      className={`rounded-lg p-6 shadow-md flex flex-col ${
-        darkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-700'
-      }`}
-    >
-      {/* Header with Title and Search */}
-      <div className="mb-6 flex items-center justify-between">
+    <div className={`rounded-lg p-6 shadow-md flex flex-col ${darkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-700'}`}>
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        {/* Filter Transactions Heading */}
         <h3 className={`text-lg font-semibold ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
           Filter Transactions
         </h3>
-        {/* You can add a search input here if needed */}
+
+        {/* Search Bar */}
+        <div className="w-full sm:w-1/3 lg:w-1/4 relative">
+          <div className="relative">
+            <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className={`w-4 h-4 ${darkMode ? 'text-gray-300' : 'text-gray-500'}`} />
+            </span>
+            <input
+              type="text"
+              value={collectId}
+              onChange={(e) => setCollectId(e.target.value)}
+              placeholder="Enter Collect ID"
+              className={`block w-full pl-10 py-2 px-3 text-sm rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${darkMode ? 'bg-gray-700 text-gray-100 placeholder-gray-400' : 'bg-white text-gray-700'
+                }`}
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Filters - Modern Grid Layout */}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-4 mb-6">
-        {/* School ID */}
         <div>
           <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
             School ID
@@ -160,15 +187,14 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
                 backgroundColor: state.isSelected
                   ? '#6366f1'
                   : state.isFocused
-                  ? darkMode ? '#4A5568' : '#F9FAFB'
-                  : darkMode ? '#374151' : 'white',
+                    ? darkMode ? '#4A5568' : '#F9FAFB'
+                    : darkMode ? '#374151' : 'white',
                 color: state.isSelected ? 'white' : darkMode ? 'white' : 'black',
               }),
             }}
           />
         </div>
 
-        {/* Status */}
         <div>
           <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
             Status
@@ -234,15 +260,14 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
                 backgroundColor: state.isSelected
                   ? '#6366f1'
                   : state.isFocused
-                  ? darkMode ? '#4A5568' : '#F9FAFB'
-                  : darkMode ? '#374151' : 'white',
+                    ? darkMode ? '#4A5568' : '#F9FAFB'
+                    : darkMode ? '#374151' : 'white',
                 color: state.isSelected ? 'white' : darkMode ? 'white' : 'black',
               }),
             }}
           />
         </div>
 
-        {/* Start Date */}
         <div>
           <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
             Start Date
@@ -253,9 +278,8 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
               onChange={(date) => setStartDate(date)}
               dateFormat="yyyy-MM-dd"
               placeholderText="yyyy-mm-dd"
-              className={`block w-full py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-none ${
-                darkMode ? 'bg-gray-700 text-gray-100 placeholder-gray-400' : 'bg-white text-gray-700'
-              }`}
+              className={`block w-full py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-none ${darkMode ? 'bg-gray-700 text-gray-100 placeholder-gray-400' : 'bg-white text-gray-700'
+                }`}
             />
           </div>
         </div>
@@ -271,28 +295,23 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
               onChange={(date) => setEndDate(date)}
               dateFormat="yyyy-MM-dd"
               placeholderText="yyyy-mm-dd"
-              className={`block w-full py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-none ${
-                darkMode ? 'bg-gray-700 text-gray-100 placeholder-gray-400' : 'bg-white text-gray-700'
-              }`}
+              className={`block w-full py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-none ${darkMode ? 'bg-gray-700 text-gray-100 placeholder-gray-400' : 'bg-white text-gray-700'
+                }`}
             />
           </div>
         </div>
       </div>
 
-      {/* Actions - Modern Alignment */}
-      <div className="flex justify-end gap-x-3">
+      <div className="flex justify-end space-x-4">
         <button
-          type="button"
-          className={`cursor-pointer rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
-            darkMode ? 'bg-indigo-600 hover:bg-indigo-700 text-white ' : ''
-          }`}
           onClick={clearFilters}
+          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 cursor-pointer"
         >
           Clear
         </button>
         <button
           onClick={applyFilters}
-          className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 transition-colors text-white font-medium text-sm rounded-md px-5 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 cursor-pointer"
         >
           Apply
         </button>
