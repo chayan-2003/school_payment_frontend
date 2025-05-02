@@ -59,15 +59,21 @@ const TransactionsTable = ({ darkMode }: { darkMode: boolean }) => {
   }, [searchParams, sortBy, sortOrder]);
 
   const updateParams = (updates: Record<string, string>) => {
-    const params = Object.fromEntries(searchParams);
-    Object.assign(params, updates);
+    const params = new URLSearchParams(searchParams);
+  
+    // Preserve existing multi-value parameters like 'status'
+    if (updates.status) {
+      const existingStatuses = params.getAll('status');
+      params.delete('status'); // Remove existing 'status' entries
+      [...existingStatuses, updates.status].forEach((status) => params.append('status', status));
+    }
+  
+    // Update other parameters
+    Object.entries(updates).forEach(([key, value]) => {
+      if (key !== 'status') params.set(key, value);
+    });
+  
     setSearchParams(params);
-  };
-
-  const handleSort = (field: string) => {
-    let newOrder: 'asc' | 'desc' = 'asc';
-    if (sortBy === field && sortOrder === 'asc') newOrder = 'desc';
-    updateParams({ sortBy: field, sortOrder: newOrder });
   };
 
   // const sortIndicator = (field: string) => {
@@ -78,7 +84,6 @@ const TransactionsTable = ({ darkMode }: { darkMode: boolean }) => {
   const handlePageChange = (newPage: number) => {
     updateParams({ page: String(newPage), limit: String(pageSize) });
   };
-
   const statusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case 'success':
@@ -91,7 +96,17 @@ const TransactionsTable = ({ darkMode }: { darkMode: boolean }) => {
         return darkMode ? 'text-gray-400' : 'text-gray-700';
     }
   };
-
+  const handleSort = (field: string) => {
+    let newOrder: 'asc' | 'desc' = 'asc';
+  
+    // Toggle sort order if the same column is clicked
+    if (sortBy === field && sortOrder === 'asc') {
+      newOrder = 'desc';
+    }
+  
+    // Update the query parameters with the new sortBy and sortOrder
+    updateParams({ sortBy: field, sortOrder: newOrder });
+  };
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });

@@ -30,7 +30,7 @@ const Filter = ({ darkMode }: { darkMode: boolean }) => {
   const [selectedSchools, setSelectedSchools] = useState<MultiValue<Option>>(
     initSchools.map((id) => ({ value: id, label: id }))
   );
-
+  
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
