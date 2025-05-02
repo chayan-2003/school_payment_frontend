@@ -13,6 +13,7 @@ const RegisterPage = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    toast.success('The server might take up to a minute to respond due to Render’s inactivity. Please be patient.');
 
     if (!name || !email || !password) {
       toast.error('Please fill in all fields.');
@@ -108,7 +109,7 @@ const RegisterPage = () => {
               />
               <button
                 type="submit"
-                className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all flex items-center justify-center"
+                className="w-full hover:cursor-pointer bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all flex items-center justify-center"
                 disabled={loading}
               >
                 {loading ? (

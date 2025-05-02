@@ -119,7 +119,7 @@ const TransactionsBySchoolPage = () => {
           <div className="flex items-center space-x-2">
             <button
               onClick={() => navigate('/dashboard')}
-              className={`cursor-pointer px-2 py-2 rounded-md text-sm font-medium transition-all duration-200 ${darkMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-white text-indigo-600 hover:bg-indigo-100'
+              className={`hover:cursor-pointer px-2 py-2 rounded-md text-sm font-medium transition-all duration-200 ${darkMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-white text-indigo-600 hover:bg-indigo-100'
                 }`}
             >
               Dashboard
@@ -133,7 +133,7 @@ const TransactionsBySchoolPage = () => {
               }}
               aria-label="Toggle Dark Mode"
             >
-              {darkMode ? <FaSun className="h-5 w-5" /> : <FaMoon className="h-5 w-5" />}
+              {darkMode ? <FaSun className="h-5 w-5 hover:cursor-pointer" /> : <FaMoon className="h-5 w-5 hover:cursor-pointer" />}
             </button>
           </div>
         </div>

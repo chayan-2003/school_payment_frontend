@@ -96,7 +96,7 @@ const TransactionStatusPage = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => (window.location.href = '/dashboard')}
-              className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+              className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:cursor-pointer ${
                 darkMode ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-indigo-500 text-white hover:bg-indigo-600'
               }`}
             >
@@ -112,7 +112,7 @@ const TransactionStatusPage = () => {
               }`}
               aria-label="Toggle Theme"
             >
-              {darkMode ? <FaMoon className="w-5 h-5" /> : <FaSun className="w-5 h-5" />}
+              {darkMode ? <FaMoon className="w-5 h-5 hover:cursor-pointer" /> : <FaSun className="w-5 h-5 hover:cursor-pointer" />}
             </button>
           </div>
         </header>
@@ -137,7 +137,7 @@ const TransactionStatusPage = () => {
               />
               <button
                 onClick={fetchTransactionStatus}
-                className="absolute inset-y-0 right-0 flex items-center pr-3"
+                className="absolute inset-y-0 right-0 flex items-center pr-3 hover:cursor-pointer"
                 aria-label="Search"
               >
                 <FaSearch className={`h-5 w-5 ${darkMode ? 'text-zinc-400' : 'text-gray-400'}`} />
@@ -145,7 +145,7 @@ const TransactionStatusPage = () => {
             </div>
             <button
               onClick={fetchTransactionStatus}
-              className={`w-full sm:w-auto py-3 px-6 rounded-md text-white font-semibold transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+              className={`w-full sm:w-auto py-3 px-6 rounded-md text-white font-semibold transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:cursor-pointer ${
                 loading ? 'cursor-wait bg-indigo-400' : 'bg-indigo-600 hover:bg-indigo-700'
               }`}
               disabled={loading}

@@ -87,7 +87,8 @@ const LoginPage = () => {
               />
               <button
                 type="submit"
-                className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all flex items-center justify-center"
+                className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all flex items-center justify-center
+                hover:cursor-pointer"
                 disabled={loading}
               >
                 {loading ? (

@@ -60,7 +60,7 @@ const PaymentPage = () => {
             <div className="absolute top-4 right-4 z-10 flex items-center gap-4">
                 <button
                     onClick={() => setDarkMode(!darkMode)}
-                    className="px-3 py-2 rounded-full bg-white/20 text-white hover:bg-white/40 text-sm font-medium shadow backdrop-blur-md"
+                    className="px-3 py-2 rounded-full hover:cursor-pointer bg-white/20 text-white hover:bg-white/40 text-sm font-medium shadow backdrop-blur-md"
                 >
                     {darkMode ? '🌞' : '🌙'}
                 </button>
@@ -122,7 +122,7 @@ const PaymentPage = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full py-3 px-6 font-semibold rounded-full shadow-lg transition-all flex items-center justify-center gap-2 ${
+                        className={`w-full py-3 px-6 hover:cursor-pointer font-semibold rounded-full shadow-lg transition-all flex items-center justify-center gap-2 ${
                             loading
                                 ? 'bg-indigo-300 cursor-not-allowed'
                                 : 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700'

@@ -100,7 +100,7 @@ export default function Dashboard() {
                     mt-4 sm:mt-0">
                         <button
                             onClick={() => navigate('/dashboard')}
-                            className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${darkMode ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-indigo-500 text-white hover:bg-indigo-600'
+                            className={`flex hover:cursor-pointer items-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${darkMode ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-indigo-500 text-white hover:bg-indigo-600'
                                 }`}
                         >
                             <FaArrowLeft className="mr-2 animate-bounce" />
@@ -108,7 +108,7 @@ export default function Dashboard() {
                         </button>
                         <button
                             onClick={toggleDarkMode}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-xl shadow border text-sm ${darkMode
+                            className={`flex items-center gap-2 hover:cursor-pointer px-4 py-2 rounded-xl shadow border text-sm ${darkMode
                                 ? 'bg-gray-800 text-white border-gray-700 hover:bg-gray-700'
                                 : 'bg-white text-black border-gray-200 hover:bg-gray-100'
                                 }`}
