@@ -8,6 +8,10 @@
    - Flow Summary  
 
 3. **Key Considerations**  
+### 🔐 Login Credentials
+
+- **Email**: `testuser@gmail.com`  
+- **Password**: `testUser@2003`
 
 
 
